@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>POTA stats</title>
+<title>W4WJE POTA stats</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Overpass:wght@400;600;800&display=swap" rel="stylesheet">
@@ -80,127 +80,29 @@
 </style>
 </head>
 <body>
-<div class="wrap" id="app"><div class="msg">Loading POTA stats…</div></div>
+<div class="wrap">
+<div class="sign"><div class="sign-inner">
+<img class="avatar" src="https://www.gravatar.com/avatar/03907e063242210292b4fad74b2c595b?s=168&amp;d=mp" alt="">
+<div>
+<a class="call" href="https://pota.app/#/profile/W4WJE" target="_blank" rel="noopener">W4WJE</a>
+<div class="who">Joe Estabrooks, Fairfax County, VA</div>
+<div class="who" style="font-size:14px;margin-top:2px">Also W4WJE/AE</div>
+</div>
+<div class="big"><div><div class="num">758</div><div class="lbl">Activations</div></div><div><div class="num">148</div><div class="lbl">Parks activated</div></div><div><div class="num">24,560</div><div class="lbl">Activator QSOs</div></div></div>
+</div></div>
 
-<script>
-(function(){
-  const params = new URLSearchParams(location.search);
-  const call = (params.get('call') || 'W4WJE').toUpperCase().replace(/[^A-Z0-9\/]/g,'');
-  const app = document.getElementById('app');
-  const POTA = 'https://pota.app/#/';
+<div class="pair">
+<div class="panel"><h2>Hunting</h2><div class="stats"><div><div class="num">2,312</div><div class="lbl">Parks hunted</div></div><div><div class="num">6,262</div><div class="lbl">Hunter QSOs</div></div></div></div>
+<div class="panel"><h2>Awards</h2><div class="stats"><div><div class="num">56</div><div class="lbl">Awards</div></div><div><div class="num">154</div><div class="lbl">Endorsements</div></div></div></div>
+</div>
 
-  function el(tag, attrs, kids){
-    const n = document.createElement(tag);
-    if (attrs) for (const k in attrs){
-      if (k === 'text') n.textContent = attrs[k];
-      else if (k === 'style') n.setAttribute('style', attrs[k]);
-      else n.setAttribute(k, attrs[k]);
-    }
-    (kids || []).forEach(c => c && n.appendChild(typeof c === 'string' ? document.createTextNode(c) : c));
-    return n;
-  }
-  const num = v => (typeof v === 'number' ? v : parseInt(v,10) || 0);
-  const fmt = v => num(v).toLocaleString('en-US');
-  const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  function niceDate(s){
-    const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(s || '');
-    return m ? `${MONTHS[+m[2]-1]} ${+m[3]}, ${m[1]}` : (s || '');
-  }
-  function stat(value, label){
-    return el('div', null, [el('div',{class:'num',text:fmt(value)}), el('div',{class:'lbl',text:label})]);
-  }
-  function otherCalls(oc){
-    if (!oc) return '';
-    let list = Array.isArray(oc) ? oc : (typeof oc === 'string' ? oc.split(/[,\s]+/) : Object.values(oc));
-    list = list.map(x => typeof x === 'string' ? x : (x && (x.callsign || x.call)) || '').filter(Boolean);
-    return list.length ? 'Also ' + list.join(', ') : '';
-  }
+<div class="recent">
+<div class="recent-head"><h2>Recent activations</h2>
+<div class="legend"><span style="--c:var(--cw)">CW</span><span style="--c:var(--data)">Data</span><span style="--c:var(--phone)">Phone</span></div></div>
+<div class="act"><div class="date">Oct 18, 2026</div><div class="refcell"><a class="ref" href="https://pota.app/#/park/US-13543" target="_blank" rel="noopener">US-13543</a></div><div class="park"><a href="https://pota.app/#/park/US-13543" target="_blank" rel="noopener" title="US-13543">US-13543</a><div class="loc">US-DC</div></div><div class="bar" title="CW 84, Data 0, Phone 0"><i style="width:100.0%;background:var(--cw)"></i></div><div class="total">84</div></div><div class="act"><div class="date">Oct 18, 2026</div><div class="refcell"><a class="ref" href="https://pota.app/#/park/US-0015" target="_blank" rel="noopener">US-0015</a></div><div class="park"><a href="https://pota.app/#/park/US-0015" target="_blank" rel="noopener" title="US-0015">US-0015</a><div class="loc">US-MD</div></div><div class="bar" title="CW 12, Data 0, Phone 0"><i style="width:100.0%;background:var(--cw)"></i></div><div class="total">12</div></div><div class="act"><div class="date">Oct 18, 2026</div><div class="refcell"><a class="ref" href="https://pota.app/#/park/US-0015" target="_blank" rel="noopener">US-0015</a></div><div class="park"><a href="https://pota.app/#/park/US-0015" target="_blank" rel="noopener" title="US-0015">US-0015</a><div class="loc">US-DC</div></div><div class="bar" title="CW 15, Data 0, Phone 0"><i style="width:100.0%;background:var(--cw)"></i></div><div class="total">15</div></div><div class="act"><div class="date">Oct 18, 2026</div><div class="refcell"><a class="ref" href="https://pota.app/#/park/US-0656" target="_blank" rel="noopener">US-0656</a></div><div class="park"><a href="https://pota.app/#/park/US-0656" target="_blank" rel="noopener" title="US-0656">US-0656</a><div class="loc">US-DC</div></div><div class="bar" title="CW 15, Data 0, Phone 0"><i style="width:100.0%;background:var(--cw)"></i></div><div class="total">15</div></div><div class="act"><div class="date">Oct 15, 2026</div><div class="refcell"><a class="ref" href="https://pota.app/#/park/US-13597" target="_blank" rel="noopener">US-13597</a></div><div class="park"><a href="https://pota.app/#/park/US-13597" target="_blank" rel="noopener" title="US-13597">US-13597</a><div class="loc">US-DC</div></div><div class="bar" title="CW 16, Data 0, Phone 0"><i style="width:100.0%;background:var(--cw)"></i></div><div class="total">16</div></div><div class="act"><div class="date">Oct 15, 2026</div><div class="refcell"><a class="ref" href="https://pota.app/#/park/US-0655" target="_blank" rel="noopener">US-0655</a></div><div class="park"><a href="https://pota.app/#/park/US-0655" target="_blank" rel="noopener" title="US-0655">US-0655</a><div class="loc">US-DC</div></div><div class="bar" title="CW 16, Data 0, Phone 0"><i style="width:100.0%;background:var(--cw)"></i></div><div class="total">16</div></div><div class="act"><div class="date">Oct 14, 2026</div><div class="refcell"><a class="ref" href="https://pota.app/#/park/US-0712" target="_blank" rel="noopener">US-0712</a></div><div class="park"><a href="https://pota.app/#/park/US-0712" target="_blank" rel="noopener" title="US-0712">US-0712</a><div class="loc">US-VA</div></div><div class="bar" title="CW 39, Data 0, Phone 0"><i style="width:100.0%;background:var(--cw)"></i></div><div class="total">39</div></div><div class="act"><div class="date">Oct 14, 2026</div><div class="refcell"><a class="ref" href="https://pota.app/#/park/US-9935" target="_blank" rel="noopener">US-9935</a></div><div class="park"><a href="https://pota.app/#/park/US-9935" target="_blank" rel="noopener" title="US-9935">US-9935</a><div class="loc">US-VA</div></div><div class="bar" title="CW 39, Data 0, Phone 0"><i style="width:100.0%;background:var(--cw)"></i></div><div class="total">39</div></div><div class="act"><div class="date">Oct 13, 2026</div><div class="refcell"><a class="ref" href="https://pota.app/#/park/US-0712" target="_blank" rel="noopener">US-0712</a></div><div class="park"><a href="https://pota.app/#/park/US-0712" target="_blank" rel="noopener" title="US-0712">US-0712</a><div class="loc">US-VA</div></div><div class="bar" title="CW 10, Data 0, Phone 0"><i style="width:100.0%;background:var(--cw)"></i></div><div class="total">10</div></div><div class="act"><div class="date">Oct 13, 2026</div><div class="refcell"><a class="ref" href="https://pota.app/#/park/US-9935" target="_blank" rel="noopener">US-9935</a></div><div class="park"><a href="https://pota.app/#/park/US-9935" target="_blank" rel="noopener" title="US-9935">US-9935</a><div class="loc">US-VA</div></div><div class="bar" title="CW 10, Data 0, Phone 0"><i style="width:100.0%;background:var(--cw)"></i></div><div class="total">10</div></div><div class="act"><div class="date">Oct 12, 2026</div><div class="refcell"><a class="ref" href="https://pota.app/#/park/US-0670" target="_blank" rel="noopener">US-0670</a></div><div class="park"><a href="https://pota.app/#/park/US-0670" target="_blank" rel="noopener" title="US-0670">US-0670</a><div class="loc">US-VA</div></div><div class="bar" title="CW 17, Data 0, Phone 0"><i style="width:100.0%;background:var(--cw)"></i></div><div class="total">17</div></div><div class="act"><div class="date">Oct 8, 2026</div><div class="refcell"><a class="ref" href="https://pota.app/#/park/US-0670" target="_blank" rel="noopener">US-0670</a></div><div class="park"><a href="https://pota.app/#/park/US-0670" target="_blank" rel="noopener" title="US-0670">US-0670</a><div class="loc">US-VA</div></div><div class="bar" title="CW 34, Data 0, Phone 0"><i style="width:100.0%;background:var(--cw)"></i></div><div class="total">34</div></div><div class="act"><div class="date">Oct 8, 2026</div><div class="refcell"><a class="ref" href="https://pota.app/#/park/US-4564" target="_blank" rel="noopener">US-4564</a></div><div class="park"><a href="https://pota.app/#/park/US-4564" target="_blank" rel="noopener" title="US-4564">US-4564</a><div class="loc">US-VA</div></div><div class="bar" title="CW 34, Data 0, Phone 0"><i style="width:100.0%;background:var(--cw)"></i></div><div class="total">34</div></div><div class="act"><div class="date">Oct 8, 2026</div><div class="refcell"><a class="ref" href="https://pota.app/#/park/US-9935" target="_blank" rel="noopener">US-9935</a></div><div class="park"><a href="https://pota.app/#/park/US-9935" target="_blank" rel="noopener" title="US-9935">US-9935</a><div class="loc">US-VA</div></div><div class="bar" title="CW 34, Data 0, Phone 0"><i style="width:100.0%;background:var(--cw)"></i></div><div class="total">34</div></div><div class="act"><div class="date">Oct 8, 2026</div><div class="refcell"><a class="ref" href="https://pota.app/#/park/US-9898" target="_blank" rel="noopener">US-9898</a></div><div class="park"><a href="https://pota.app/#/park/US-9898" target="_blank" rel="noopener" title="US-9898">US-9898</a><div class="loc">US-VA</div></div><div class="bar" title="CW 34, Data 0, Phone 0"><i style="width:100.0%;background:var(--cw)"></i></div><div class="total">34</div></div><div class="act"><div class="date">Oct 7, 2026</div><div class="refcell"><a class="ref" href="https://pota.app/#/park/US-0670" target="_blank" rel="noopener">US-0670</a></div><div class="park"><a href="https://pota.app/#/park/US-0670" target="_blank" rel="noopener" title="US-0670">US-0670</a><div class="loc">US-VA</div></div><div class="bar" title="CW 24, Data 0, Phone 0"><i style="width:100.0%;background:var(--cw)"></i></div><div class="total">24</div></div><div class="act"><div class="date">Oct 7, 2026</div><div class="refcell"><a class="ref" href="https://pota.app/#/park/US-9935" target="_blank" rel="noopener">US-9935</a></div><div class="park"><a href="https://pota.app/#/park/US-9935" target="_blank" rel="noopener" title="US-9935">US-9935</a><div class="loc">US-VA</div></div><div class="bar" title="CW 24, Data 0, Phone 0"><i style="width:100.0%;background:var(--cw)"></i></div><div class="total">24</div></div><div class="act"><div class="date">Oct 7, 2026</div><div class="refcell"><a class="ref" href="https://pota.app/#/park/US-4581" target="_blank" rel="noopener">US-4581</a></div><div class="park"><a href="https://pota.app/#/park/US-4581" target="_blank" rel="noopener" title="US-4581">US-4581</a><div class="loc">US-VA</div></div><div class="bar" title="CW 24, Data 0, Phone 0"><i style="width:100.0%;background:var(--cw)"></i></div><div class="total">24</div></div><div class="act"><div class="date">Oct 7, 2026</div><div class="refcell"><a class="ref" href="https://pota.app/#/park/US-4564" target="_blank" rel="noopener">US-4564</a></div><div class="park"><a href="https://pota.app/#/park/US-4564" target="_blank" rel="noopener" title="US-4564">US-4564</a><div class="loc">US-VA</div></div><div class="bar" title="CW 24, Data 0, Phone 0"><i style="width:100.0%;background:var(--cw)"></i></div><div class="total">24</div></div><div class="act"><div class="date">Oct 7, 2026</div><div class="refcell"><a class="ref" href="https://pota.app/#/park/US-4567" target="_blank" rel="noopener">US-4567</a></div><div class="park"><a href="https://pota.app/#/park/US-4567" target="_blank" rel="noopener" title="US-4567">US-4567</a><div class="loc">US-VA</div></div><div class="bar" title="CW 24, Data 0, Phone 0"><i style="width:100.0%;background:var(--cw)"></i></div><div class="total">24</div></div><div class="act"><div class="date">Oct 7, 2026</div><div class="refcell"><a class="ref" href="https://pota.app/#/park/US-9961" target="_blank" rel="noopener">US-9961</a></div><div class="park"><a href="https://pota.app/#/park/US-9961" target="_blank" rel="noopener" title="US-9961">US-9961</a><div class="loc">US-VA</div></div><div class="bar" title="CW 24, Data 0, Phone 0"><i style="width:100.0%;background:var(--cw)"></i></div><div class="total">24</div></div><div class="act"><div class="date">Oct 7, 2026</div><div class="refcell"><a class="ref" href="https://pota.app/#/park/US-9898" target="_blank" rel="noopener">US-9898</a></div><div class="park"><a href="https://pota.app/#/park/US-9898" target="_blank" rel="noopener" title="US-9898">US-9898</a><div class="loc">US-VA</div></div><div class="bar" title="CW 24, Data 0, Phone 0"><i style="width:100.0%;background:var(--cw)"></i></div><div class="total">24</div></div><div class="act"><div class="date">Oct 4, 2026</div><div class="refcell"><a class="ref" href="https://pota.app/#/park/US-0712" target="_blank" rel="noopener">US-0712</a></div><div class="park"><a href="https://pota.app/#/park/US-0712" target="_blank" rel="noopener" title="US-0712">US-0712</a><div class="loc">US-VA</div></div><div class="bar" title="CW 17, Data 0, Phone 5"><i style="width:77.3%;background:var(--cw)"></i><i style="width:22.7%;background:var(--phone)"></i></div><div class="total">22</div></div><div class="act"><div class="date">Oct 4, 2026</div><div class="refcell"><a class="ref" href="https://pota.app/#/park/US-9935" target="_blank" rel="noopener">US-9935</a></div><div class="park"><a href="https://pota.app/#/park/US-9935" target="_blank" rel="noopener" title="US-9935">US-9935</a><div class="loc">US-VA</div></div><div class="bar" title="CW 17, Data 0, Phone 5"><i style="width:77.3%;background:var(--cw)"></i><i style="width:22.7%;background:var(--phone)"></i></div><div class="total">22</div></div><div class="act"><div class="date">Aug 8, 2026</div><div class="refcell"><a class="ref" href="https://pota.app/#/park/US-7014" target="_blank" rel="noopener">US-7014</a></div><div class="park"><a href="https://pota.app/#/park/US-7014" target="_blank" rel="noopener" title="US-7014">US-7014</a><div class="loc">US-WV</div></div><div class="bar" title="CW 21, Data 0, Phone 17"><i style="width:55.3%;background:var(--cw)"></i><i style="width:44.7%;background:var(--phone)"></i></div><div class="total">38</div></div>
+</div>
 
-  function render(p){
-    const s = p.stats || {};
-    const act = s.activator || {};
-    const hunt = s.hunter || {};
-    const who = [p.name, p.qth].filter(Boolean).join(', ');
-    const also = otherCalls(p.other_callsigns);
-
-    const avatar = p.gravatar
-      ? el('img',{class:'avatar',src:'https://www.gravatar.com/avatar/'+p.gravatar+'?s=168&d=mp',alt:''})
-      : el('div',{class:'avatar'});
-
-    const sign = el('div',{class:'sign'},[ el('div',{class:'sign-inner'},[
-      avatar,
-      el('div',null,[
-        el('a',{class:'call',href:POTA+'profile/'+encodeURIComponent(p.callsign||call),target:'_blank',rel:'noopener',text:p.callsign||call}),
-        who ? el('div',{class:'who',text:who}) : null,
-        also ? el('div',{class:'who',style:'font-size:14px;margin-top:2px',text:also}) : null
-      ]),
-      el('div',{class:'big'},[
-        stat(act.activations,'Activations'),
-        stat(act.parks,'Parks activated'),
-        stat(act.qsos,'Activator QSOs')
-      ])
-    ])]);
-
-    const awards = s.awards != null || s.endorsements != null;
-    const pair = el('div',{class:'pair'},[
-      el('div',{class:'panel'},[ el('h2',{text:'Hunting'}),
-        el('div',{class:'stats'},[stat(hunt.parks,'Parks hunted'), stat(hunt.qsos,'Hunter QSOs')]) ]),
-      el('div',{class:'panel'},[ el('h2',{text:awards ? 'Awards' : 'Attempts'}),
-        el('div',{class:'stats'}, awards
-          ? [stat(s.awards,'Awards'), stat(s.endorsements,'Endorsements')]
-          : [stat((s.attempts||{}).activations,'Attempts'), stat((s.attempts||{}).parks,'Parks')]) ])
-    ]);
-
-    const recentList = ((p.recent_activity||{}).activations) || [];
-    const recent = el('div',{class:'recent'},[
-      el('div',{class:'recent-head'},[
-        el('h2',{text:'Recent activations'}),
-        el('div',{class:'legend'},[
-          el('span',{style:'--c:var(--cw)',text:'CW'}),
-          el('span',{style:'--c:var(--data)',text:'Data'}),
-          el('span',{style:'--c:var(--phone)',text:'Phone'})
-        ])
-      ])
-    ]);
-    if (!recentList.length){
-      recent.appendChild(el('div',{class:'loc',text:'No recent activations listed on pota.app.'}));
-    }
-    recentList.forEach(a => {
-      const cw = num(a.cw), dt = num(a.data), ph = num(a.phone);
-      const total = num(a.total) || (cw+dt+ph);
-      const sum = (cw+dt+ph) || 1;
-      const seg = (n,c) => n ? el('i',{style:`width:${(n/sum*100).toFixed(1)}%;background:var(${c})`}) : null;
-      const ref = a.reference || a.ref || '';
-      const parkUrl = POTA+'park/'+encodeURIComponent(ref);
-      recent.appendChild(el('div',{class:'act'},[
-        el('div',{class:'date',text:niceDate(a.date)}),
-        el('div',{class:'refcell'},[el('a',{class:'ref',href:parkUrl,target:'_blank',rel:'noopener',text:ref})]),
-        el('div',{class:'park'},[
-          el('a',{href:parkUrl,target:'_blank',rel:'noopener',title:a.name||'',text:a.name||ref}),
-          el('div',{class:'loc',text:a.locationDesc||a.location||''})
-        ]),
-        el('div',{class:'bar',title:`CW ${cw}, Data ${dt}, Phone ${ph}`,role:'img','aria-label':`CW ${cw}, Data ${dt}, Phone ${ph}`},
-          [seg(cw,'--cw'),seg(dt,'--data'),seg(ph,'--phone')]),
-        el('div',{class:'total',text:fmt(total)})
-      ]));
-    });
-
-    const foot = el('div',{class:'foot'},['Live from ',
-      el('a',{href:'https://pota.app',target:'_blank',rel:'noopener',text:'pota.app'})]);
-
-    app.replaceChildren(sign, pair, recent, foot);
-  }
-
-  fetch('https://api.pota.app/profile/' + encodeURIComponent(call))
-    .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
-    .then(render)
-    .catch(() => {
-      app.replaceChildren(el('div',{class:'msg'},[
-        `POTA stats for ${call} didn't load. `,
-        el('a',{href:POTA+'profile/'+encodeURIComponent(call),target:'_blank',rel:'noopener',text:'Open the profile on pota.app'})
-      ]));
-    });
-})();
-</script>
+<div class="foot">From <a href="https://pota.app" target="_blank" rel="noopener">pota.app</a>, updated 2026-10-19 22:47 UTC</div>
+</div>
 </body>
 </html>
