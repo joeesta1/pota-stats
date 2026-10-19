@@ -403,8 +403,6 @@ def maps_section(p):
         pts = [(a[0], a[1], 3 + min(math.sqrt(a[2]) * 1.6, 12), f"{a[3]} {a[4]} ({a[2]})") for a in A]
         sub = f"{len(A)} parks" + (" plotted, sized by activations" if os.path.exists("activated.csv") else " from recent activations")
         html.append(svg_map("Where I activate", pts, "#F28A2E", P, base, sub=sub))
-        far = max(A, key=lambda a: miles(HOME, a))
-        tiles.append(tile(f"{miles(HOME, far):,.0f} mi", "Farthest activation", f"{far[3]} {far[5]}"))
 
     if Hh:
         lats = [h[0] for h in Hh]; lons = [h[1] for h in Hh]
