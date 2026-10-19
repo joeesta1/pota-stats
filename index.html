@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>POTA stats</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Overpass:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0F1B33; --card:rgba(255,255,255,.06); --edge:rgba(255,255,255,.14);
+    --ink:#E8EEF7; --muted:#9FB0C8; --line:rgba(255,255,255,.10);
+    --cyan:#29C4C4; --blue:#2F6FD6; --yellow:#F2E24A; --orange:#F28A2E; --red:#E2363A;
+    --cw:#29C4C4; --data:#2F6FD6; --phone:#F28A2E;
+  }
+  *{box-sizing:border-box}
+  html{color-scheme:dark}
+  body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:Overpass,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:16px;line-height:1.5}
+  a{color:inherit}
+  .wrap{max-width:960px;margin:0 auto}
+
+  .sign{background:var(--card);border:1px solid var(--edge);border-radius:16px;overflow:hidden}
+  .sign::before{content:"";display:block;height:6px;
+    background:linear-gradient(90deg,#1B2A6B,var(--blue),var(--cyan),var(--yellow),var(--orange),var(--red))}
+  .sign-inner{padding:22px 24px;display:grid;grid-template-columns:auto 1fr;gap:18px 22px;align-items:center}
+  .avatar{width:80px;height:80px;border-radius:50%;border:3px solid var(--cyan);object-fit:cover;background:#1B2A6B}
+  .call{font-size:46px;font-weight:800;letter-spacing:.06em;line-height:1;text-decoration:none;display:inline-block;color:#fff}
+  .call:hover,.call:focus-visible{text-decoration:underline;text-underline-offset:6px;text-decoration-color:var(--cyan)}
+  .who{margin-top:8px;color:var(--muted)}
+  .big{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .big>div{background:rgba(0,0,0,.25);border-radius:12px;padding:14px 16px}
+  .big>div:nth-child(1) .num{color:var(--cyan)}
+  .big>div:nth-child(2) .num{color:var(--yellow)}
+  .big>div:nth-child(3) .num{color:var(--orange)}
+  .num{font-size:40px;font-weight:800;line-height:1;font-variant-numeric:tabular-nums;color:#fff}
+  .lbl{font-size:14px;color:var(--muted);margin-top:6px}
+
+  .pair{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
+  .panel{background:var(--card);border:1px solid var(--edge);border-radius:16px;padding:18px 22px}
+  .panel h2{margin:0 0 10px;font-size:20px;font-weight:800;color:var(--cyan)}
+  .panel:nth-child(2) h2{color:var(--orange)}
+  .panel .stats{display:flex;gap:28px;flex-wrap:wrap}
+  .panel .num{font-size:30px}
+
+  .recent{margin-top:14px;background:var(--card);border:1px solid var(--edge);border-radius:16px;padding:18px 22px}
+  .recent-head{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px;margin-bottom:8px}
+  .recent h2{margin:0;font-size:20px;font-weight:800;color:var(--yellow)}
+  .legend{display:flex;gap:14px;font-size:14px;color:var(--muted)}
+  .legend span::before{content:"";display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px;background:var(--c)}
+
+  .act{display:grid;grid-template-columns:110px 104px 1fr 150px 56px;gap:14px;align-items:center;
+    padding:10px 0;border-top:1px solid var(--line)}
+  .date{color:var(--muted);font-size:15px;font-variant-numeric:tabular-nums}
+  .ref{display:inline-block;background:var(--blue);color:#fff;font-weight:700;font-size:14px;
+    padding:3px 10px;border-radius:999px;text-decoration:none;text-align:center;font-variant-numeric:tabular-nums}
+  .ref:hover,.ref:focus-visible{background:var(--orange)}
+  .park{min-width:0}
+  .park a{text-decoration:none;font-weight:600;display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#fff}
+  .park a:hover{text-decoration:underline}
+  .loc{font-size:14px;color:var(--muted)}
+  .bar{display:flex;height:10px;border-radius:6px;overflow:hidden;background:var(--line)}
+  .bar i{display:block;height:100%}
+  .total{text-align:right;font-weight:800;font-size:20px;font-variant-numeric:tabular-nums;color:#fff}
+
+  .foot{margin-top:12px;font-size:13px;color:var(--muted);text-align:right}
+  .msg{background:var(--card);border:1px solid var(--edge);border-radius:16px;padding:24px;text-align:center;color:var(--muted)}
+  .msg a{color:var(--cyan)}
+  a:focus-visible{outline:3px solid var(--yellow);outline-offset:2px;border-radius:4px}
+
+  @media (max-width:640px){
+    .call{font-size:34px}
+    .num{font-size:30px}
+    .big,.pair{grid-template-columns:1fr}
+    .act{grid-template-columns:auto 1fr auto;grid-template-areas:"ref park total" "date date bar"}
+    .act .refcell{grid-area:ref}.act .park{grid-area:park}.act .total{grid-area:total}
+    .act .date{grid-area:date}.act .bar{grid-area:bar;align-self:center}
+  }
+</style>
+</head>
+<body>
+<div class="wrap" id="app"><div class="msg">Loading POTA stats…</div></div>
+
+<script>
+(function(){
+  const params = new URLSearchParams(location.search);
+  const call = (params.get('call') || 'W4WJE').toUpperCase().replace(/[^A-Z0-9\/]/g,'');
+  const app = document.getElementById('app');
+  const POTA = 'https://pota.app/#/';
+
+  function el(tag, attrs, kids){
+    const n = document.createElement(tag);
+    if (attrs) for (const k in attrs){
+      if (k === 'text') n.textContent = attrs[k];
+      else if (k === 'style') n.setAttribute('style', attrs[k]);
+      else n.setAttribute(k, attrs[k]);
+    }
+    (kids || []).forEach(c => c && n.appendChild(typeof c === 'string' ? document.createTextNode(c) : c));
+    return n;
+  }
+  const num = v => (typeof v === 'number' ? v : parseInt(v,10) || 0);
+  const fmt = v => num(v).toLocaleString('en-US');
+  const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  function niceDate(s){
+    const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(s || '');
+    return m ? `${MONTHS[+m[2]-1]} ${+m[3]}, ${m[1]}` : (s || '');
+  }
+  function stat(value, label){
+    return el('div', null, [el('div',{class:'num',text:fmt(value)}), el('div',{class:'lbl',text:label})]);
+  }
+  function otherCalls(oc){
+    if (!oc) return '';
+    let list = Array.isArray(oc) ? oc : (typeof oc === 'string' ? oc.split(/[,\s]+/) : Object.values(oc));
+    list = list.map(x => typeof x === 'string' ? x : (x && (x.callsign || x.call)) || '').filter(Boolean);
+    return list.length ? 'Also ' + list.join(', ') : '';
+  }
+
+  function render(p){
+    const s = p.stats || {};
+    const act = s.activator || {};
+    const hunt = s.hunter || {};
+    const who = [p.name, p.qth].filter(Boolean).join(', ');
+    const also = otherCalls(p.other_callsigns);
+
+    const avatar = p.gravatar
+      ? el('img',{class:'avatar',src:'https://www.gravatar.com/avatar/'+p.gravatar+'?s=168&d=mp',alt:''})
+      : el('div',{class:'avatar'});
+
+    const sign = el('div',{class:'sign'},[ el('div',{class:'sign-inner'},[
+      avatar,
+      el('div',null,[
+        el('a',{class:'call',href:POTA+'profile/'+encodeURIComponent(p.callsign||call),target:'_blank',rel:'noopener',text:p.callsign||call}),
+        who ? el('div',{class:'who',text:who}) : null,
+        also ? el('div',{class:'who',style:'font-size:14px;margin-top:2px',text:also}) : null
+      ]),
+      el('div',{class:'big'},[
+        stat(act.activations,'Activations'),
+        stat(act.parks,'Parks activated'),
+        stat(act.qsos,'Activator QSOs')
+      ])
+    ])]);
+
+    const awards = s.awards != null || s.endorsements != null;
+    const pair = el('div',{class:'pair'},[
+      el('div',{class:'panel'},[ el('h2',{text:'Hunting'}),
+        el('div',{class:'stats'},[stat(hunt.parks,'Parks hunted'), stat(hunt.qsos,'Hunter QSOs')]) ]),
+      el('div',{class:'panel'},[ el('h2',{text:awards ? 'Awards' : 'Attempts'}),
+        el('div',{class:'stats'}, awards
+          ? [stat(s.awards,'Awards'), stat(s.endorsements,'Endorsements')]
+          : [stat((s.attempts||{}).activations,'Attempts'), stat((s.attempts||{}).parks,'Parks')]) ])
+    ]);
+
+    const recentList = ((p.recent_activity||{}).activations) || [];
+    const recent = el('div',{class:'recent'},[
+      el('div',{class:'recent-head'},[
+        el('h2',{text:'Recent activations'}),
+        el('div',{class:'legend'},[
+          el('span',{style:'--c:var(--cw)',text:'CW'}),
+          el('span',{style:'--c:var(--data)',text:'Data'}),
+          el('span',{style:'--c:var(--phone)',text:'Phone'})
+        ])
+      ])
+    ]);
+    if (!recentList.length){
+      recent.appendChild(el('div',{class:'loc',text:'No recent activations listed on pota.app.'}));
+    }
+    recentList.forEach(a => {
+      const cw = num(a.cw), dt = num(a.data), ph = num(a.phone);
+      const total = num(a.total) || (cw+dt+ph);
+      const sum = (cw+dt+ph) || 1;
+      const seg = (n,c) => n ? el('i',{style:`width:${(n/sum*100).toFixed(1)}%;background:var(${c})`}) : null;
+      const ref = a.reference || a.ref || '';
+      const parkUrl = POTA+'park/'+encodeURIComponent(ref);
+      recent.appendChild(el('div',{class:'act'},[
+        el('div',{class:'date',text:niceDate(a.date)}),
+        el('div',{class:'refcell'},[el('a',{class:'ref',href:parkUrl,target:'_blank',rel:'noopener',text:ref})]),
+        el('div',{class:'park'},[
+          el('a',{href:parkUrl,target:'_blank',rel:'noopener',title:a.name||'',text:a.name||ref}),
+          el('div',{class:'loc',text:a.locationDesc||a.location||''})
+        ]),
+        el('div',{class:'bar',title:`CW ${cw}, Data ${dt}, Phone ${ph}`,role:'img','aria-label':`CW ${cw}, Data ${dt}, Phone ${ph}`},
+          [seg(cw,'--cw'),seg(dt,'--data'),seg(ph,'--phone')]),
+        el('div',{class:'total',text:fmt(total)})
+      ]));
+    });
+
+    const foot = el('div',{class:'foot'},['Live from ',
+      el('a',{href:'https://pota.app',target:'_blank',rel:'noopener',text:'pota.app'})]);
+
+    app.replaceChildren(sign, pair, recent, foot);
+  }
+
+  fetch('https://api.pota.app/profile/' + encodeURIComponent(call))
+    .then(r => { if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(render)
+    .catch(() => {
+      app.replaceChildren(el('div',{class:'msg'},[
+        `POTA stats for ${call} didn't load. `,
+        el('a',{href:POTA+'profile/'+encodeURIComponent(call),target:'_blank',rel:'noopener',text:'Open the profile on pota.app'})
+      ]));
+    });
+})();
+</script>
+</body>
+</html>
