@@ -282,6 +282,15 @@
   ],
   "hunter_qsos": [
    {
+    "date": "2026-10-19T22:22:00",
+    "callsign": "W3JPH",
+    "band": "40M",
+    "mode": "CW",
+    "reference": "US-4356",
+    "park": "Boyd Big Tree State Preserve",
+    "location": "US-PA"
+   },
+   {
     "date": "2026-10-19T12:42:05",
     "callsign": "N2ESE",
     "band": "40M",
@@ -385,6 +394,15 @@
     "callsign": "KE9JQ",
     "band": "20M",
     "mode": "PHONE",
+    "reference": "US-4112",
+    "park": "Cache River State Natural Area",
+    "location": "US-IL"
+   },
+   {
+    "date": "2026-10-18T17:35:00",
+    "callsign": "KE9JS",
+    "band": "20M",
+    "mode": "PHONE",
     "reference": "US-9893",
     "park": "Tunnel Hill State Trail",
     "location": "US-IL"
@@ -394,26 +412,17 @@
     "callsign": "KE9JQ",
     "band": "20M",
     "mode": "PHONE",
-    "reference": "US-4112",
-    "park": "Cache River State Natural Area",
-    "location": "US-IL"
-   },
-   {
-    "date": "2026-10-18T17:35:00",
-    "callsign": "KE9JS",
-    "band": "20M",
-    "mode": "PHONE",
-    "reference": "US-4112",
-    "park": "Cache River State Natural Area",
-    "location": "US-IL"
-   },
-   {
-    "date": "2026-10-18T17:35:00",
-    "callsign": "KE9JS",
-    "band": "20M",
-    "mode": "PHONE",
     "reference": "US-9893",
     "park": "Tunnel Hill State Trail",
+    "location": "US-IL"
+   },
+   {
+    "date": "2026-10-18T17:35:00",
+    "callsign": "KE9JS",
+    "band": "20M",
+    "mode": "PHONE",
+    "reference": "US-4112",
+    "park": "Cache River State Natural Area",
     "location": "US-IL"
    },
    {
@@ -430,8 +439,8 @@
     "callsign": "KB3HJC",
     "band": "40M",
     "mode": "PHONE",
-    "reference": "US-5476",
-    "park": "Susquehannock State Forest",
+    "reference": "US-1406",
+    "park": "Prouty Place State Park",
     "location": "US-PA"
    },
    {
@@ -439,8 +448,8 @@
     "callsign": "KB3HJC",
     "band": "40M",
     "mode": "PHONE",
-    "reference": "US-1406",
-    "park": "Prouty Place State Park",
+    "reference": "US-5476",
+    "park": "Susquehannock State Forest",
     "location": "US-PA"
    },
    {
@@ -496,15 +505,6 @@
     "reference": "US-4148",
     "park": "Peabody River King State Fish and Wildlife Area",
     "location": "US-IL"
-   },
-   {
-    "date": "2026-10-18T13:41:00",
-    "callsign": "KO4VYT",
-    "band": "20M",
-    "mode": "CW",
-    "reference": "US-6656",
-    "park": "Prairie/Shell Creek State Conservation Area",
-    "location": "US-FL"
    }
   ]
  },
