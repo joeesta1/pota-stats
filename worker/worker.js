@@ -25,6 +25,7 @@ const CSS = `
 html,body{background:transparent;margin:0}
 body.solo{background:#0F1B33;padding:16px}
 body.solo .box{max-width:920px;margin:0 auto}
+body:not(.solo) .box{min-height:calc(100vh - 2px)}
 body{color:var(--ink);font-family:Overpass,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:15px;line-height:1.4}
 a{color:inherit}
 .box{background:#16233F;border:1px solid var(--edge);border-radius:16px;overflow:hidden}
@@ -48,7 +49,7 @@ a{color:inherit}
 .freq .m{font-size:14px;color:var(--muted);margin-top:4px}
 .mode{display:inline-block;font-size:12px;font-weight:700;border-radius:999px;padding:1px 8px;margin-left:6px;border:1px solid var(--edge);color:var(--ink)}
 .sp-head{margin:14px 0 4px;font-size:13px;font-weight:800;color:var(--cyan);letter-spacing:.04em;text-transform:uppercase}
-.spots{max-height:150px;overflow:auto}
+.spots{max-height:130px;overflow:auto}
 .sp{display:grid;grid-template-columns:52px 112px 90px 1fr;gap:10px;padding:5px 0;border-top:1px solid var(--line);font-size:13px;align-items:baseline}
 .sp .t{color:var(--muted);font-variant-numeric:tabular-nums}
 .sp .fq{font-weight:700;font-variant-numeric:tabular-nums}
