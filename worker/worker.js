@@ -110,7 +110,7 @@ async function render(call, solo) {
     const skimmers = new Set(rbnAll.map(h => String(h.spotter || "").toUpperCase())).size;
     const bands = [...new Set(hist.map(h => band(h.frequency)).filter(Boolean))];
     const row = (h, n, self) => `<div class="sp${self ? " self" : ""}"><div class="t">${hhmm(utc(h.spotTime))}z</div><div class="fq">${mhz(h.frequency)}<span class="mode">${esc(h.mode)}</span></div><div class="by${isRbn(h) ? " rbn" : ""}" title="${esc(h.spotter)}">${self ? '<span class="tag">SELF</span>' : ""}${esc(h.spotter)}${n > 1 ? ` <span class="x">×${n}</span>` : ""}</div><div class="c" title="${esc(h.comments)}">${esc(h.comments)}</div></div>`;
-    const rows = selfs.slice(0, 5).map(h => row(h, 1, true)).join("") +
+    const rows = (selfs.length ? row(selfs[0], selfs.length, true) : "") +
       hunters.slice(0, 25).map(h => row(h, 1)).join("") +
       (hunters.length && rbn.length ? '<div class="sub">RBN skimmers</div>' : "") +
       rbn.slice(0, 25).map(g => row(g.h, g.n)).join("");
