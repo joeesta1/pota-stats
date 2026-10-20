@@ -282,6 +282,15 @@
   ],
   "hunter_qsos": [
    {
+    "date": "2026-10-20T21:11:00",
+    "callsign": "W0SA",
+    "band": "20M",
+    "mode": "CW",
+    "reference": "US-9381",
+    "park": "Douglas State Trail",
+    "location": "US-MN"
+   },
+   {
     "date": "2026-10-19T22:22:00",
     "callsign": "W3JPH",
     "band": "40M",
@@ -496,15 +505,6 @@
     "reference": "US-4619",
     "park": "Deep Creek State Forest",
     "location": "US-FL"
-   },
-   {
-    "date": "2026-10-18T13:41:11",
-    "callsign": "K8ZI",
-    "band": "20M",
-    "mode": "CW",
-    "reference": "US-4148",
-    "park": "Peabody River King State Fish and Wildlife Area",
-    "location": "US-IL"
    }
   ]
  },
