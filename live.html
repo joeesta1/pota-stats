@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>W4WJE On the Air</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Overpass:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0F1B33; --card:rgba(255,255,255,.06); --edge:rgba(255,255,255,.14);
+  --ink:#E8EEF7; --muted:#9FB0C8; --line:rgba(255,255,255,.10);
+  --cyan:#29C4C4; --blue:#2F6FD6; --yellow:#F2E24A; --orange:#F28A2E; --red:#E2363A; --green:#35D07F;
+}
+*{box-sizing:border-box}
+html{color-scheme:dark}
+html,body{background:transparent}
+body{margin:0;color:var(--ink);font-family:Overpass,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:15px;line-height:1.4}
+a{color:inherit}
+.box{background:var(--card);border:1px solid var(--edge);border-radius:16px;overflow:hidden}
+.box::before{content:"";display:block;height:6px;background:linear-gradient(90deg,#1B2A6B,var(--blue),var(--cyan),var(--yellow),var(--orange),var(--red))}
+.inner{padding:14px 18px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.badge{display:inline-flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.08em;font-size:15px;
+  padding:6px 14px;border-radius:999px;background:rgba(0,0,0,.3);color:var(--muted);border:1px solid var(--edge)}
+.badge i{width:10px;height:10px;border-radius:50%;background:var(--muted);display:inline-block}
+.live .badge{color:#fff;background:rgba(226,54,58,.18);border-color:rgba(226,54,58,.7)}
+.live .badge i{background:var(--red);box-shadow:0 0 0 0 rgba(226,54,58,.7);animation:ping 1.6s ease-out infinite}
+@keyframes ping{to{box-shadow:0 0 0 10px rgba(226,54,58,0)}}
+@media (prefers-reduced-motion:reduce){.live .badge i{animation:none}}
+.upd{font-size:12px;color:var(--muted)}
+.park{display:grid;grid-template-columns:1fr auto;gap:6px 16px;align-items:end;margin-top:12px}
+.ref{display:inline-block;background:var(--blue);color:#fff;font-weight:700;font-size:14px;padding:2px 10px;border-radius:999px;text-decoration:none;margin-right:8px;vertical-align:2px}
+.ref:hover,.ref:focus-visible{background:var(--orange)}
+.pname{font-size:22px;font-weight:800;color:#fff;line-height:1.2}
+.loc{color:var(--muted);font-size:14px;margin-top:2px}
+.freq{text-align:right}
+.freq .f{font-size:28px;font-weight:800;color:var(--yellow);font-variant-numeric:tabular-nums;line-height:1}
+.freq .m{font-size:14px;color:var(--muted);margin-top:4px}
+.mode{display:inline-block;font-size:12px;font-weight:700;border-radius:999px;padding:1px 8px;margin-left:6px;border:1px solid var(--edge);color:var(--ink)}
+.sp-head{margin:14px 0 4px;font-size:13px;font-weight:800;color:var(--cyan);letter-spacing:.04em;text-transform:uppercase}
+.spots{max-height:150px;overflow:auto}
+.sp{display:grid;grid-template-columns:52px 112px 90px 1fr;gap:10px;padding:5px 0;border-top:1px solid var(--line);font-size:13px;align-items:baseline}
+.sp .t{color:var(--muted);font-variant-numeric:tabular-nums}
+.sp .fq{font-weight:700;font-variant-numeric:tabular-nums}
+.sp .by{font-weight:700;color:#fff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sp .c{color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rbn,.sp .by.rbn{color:var(--orange);font-weight:700}
+.recent .pname{font-size:20px}
+.stats{text-align:right}
+.stats .n{font-size:26px;font-weight:800;color:var(--orange);line-height:1}
+.stats .l{font-size:13px;color:var(--muted)}
+.msg{color:var(--muted);margin-top:10px}
+a:focus-visible{outline:3px solid var(--yellow);outline-offset:2px;border-radius:4px}
+@media (max-width:560px){
+  .park{grid-template-columns:1fr}.freq,.stats{text-align:left}
+  .sp{grid-template-columns:46px 104px 1fr}.sp .c{display:none}
+}
+</style>
+</head>
+<body>
+<div class="box" id="box"><div class="inner">
+  <div class="top">
+    <span class="badge"><i></i><span id="status">CHECKING POTA…</span></span>
+    <span class="upd" id="upd"></span>
+  </div>
+  <div id="body"><div class="msg">Loading…</div></div>
+</div></div>
+
+<script>
+(function(){
+  var CALL = (new URLSearchParams(location.search).get("call") || "W4WJE").toUpperCase();
+  var API = "https://api.pota.app";
+  var POTA = "https://pota.app/#/park/";
+  var REFRESH = 60 * 1000;
+  var parkCache = {};
+  var box = document.getElementById("box"), body = document.getElementById("body");
+  var statusEl = document.getElementById("status"), upd = document.getElementById("upd");
+
+  function esc(s){ return String(s == null ? "" : s).replace(/[&<>"']/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]; }); }
+  function base(c){ return String(c || "").toUpperCase().split("/").sort(function(a,b){ return b.length - a.length; })[0]; }
+  function utc(s){ if (!s) return null; s = String(s); if (!/[zZ]|[+-]\d\d:?\d\d$/.test(s)) s += "Z"; var d = new Date(s); return isNaN(d) ? null : d; }
+  function hhmm(d){ return d ? d.toISOString().slice(11,16) : ""; }
+  function ago(d){ if (!d) return ""; var m = Math.max(0, Math.round((Date.now() - d) / 60000)); return m < 1 ? "just now" : m < 60 ? m + " min ago" : Math.floor(m/60) + " h " + (m%60) + " min ago"; }
+  function mhz(k){ var n = parseFloat(k); if (!n) return esc(k); return n >= 1000 ? (n/1000).toFixed(3) : n.toFixed(1); }
+  function band(k){ var f = parseFloat(k)/1000; var B=[[1.8,2,"160m"],[3.5,4,"80m"],[5.3,5.5,"60m"],[7,7.3,"40m"],[10.1,10.15,"30m"],[14,14.35,"20m"],[18.068,18.168,"17m"],[21,21.45,"15m"],[24.89,24.99,"12m"],[28,29.7,"10m"],[50,54,"6m"],[144,148,"2m"]]; for (var i=0;i<B.length;i++) if (f>=B[i][0]&&f<=B[i][1]) return B[i][2]; return ""; }
+  function isRbn(s){ return /rbn|skimmer|-#/i.test((s.source||"") + " " + (s.spotter||"") + " " + (s.comments||"")); }
+  function getJSON(u){ return fetch(u, {cache:"no-store"}).then(function(r){ if (!r.ok) throw new Error(r.status); return r.json(); }); }
+  function park(ref){
+    if (parkCache[ref]) return Promise.resolve(parkCache[ref]);
+    return getJSON(API + "/park/" + encodeURIComponent(ref)).then(function(p){ parkCache[ref] = p; return p; }).catch(function(){ return {}; });
+  }
+
+  function renderLive(s, p, history){
+    box.className = "box live";
+    statusEl.textContent = "ACTIVE ON THE AIR";
+    var name = p.name || s.name || s.parkName || "";
+    var loc = p.locationDesc || s.locationDesc || "";
+    var t = utc(s.spotTime);
+    var rows = history.slice(0, 25).map(function(h){
+      var ht = utc(h.spotTime);
+      return '<div class="sp"><div class="t">' + hhmm(ht) + 'z</div><div class="fq">' + mhz(h.frequency) + '<span class="mode">' + esc(h.mode) + '</span></div>' +
+        '<div class="by' + (isRbn(h) ? ' rbn' : '') + '" title="' + esc(h.spotter) + '">' + esc(h.spotter) + '</div><div class="c" title="' + esc(h.comments) + '">' + esc(h.comments) + '</div></div>';
+    }).join("");
+    body.innerHTML =
+      '<div class="park"><div><div class="pname"><a class="ref" href="' + POTA + esc(s.reference) + '" target="_blank" rel="noopener">' + esc(s.reference) + '</a>' + esc(name) + '</div>' +
+      '<div class="loc">' + esc(loc) + (s.grid6 || s.grid4 ? ' · ' + esc(s.grid6 || s.grid4) : '') + '</div></div>' +
+      '<div class="freq"><div class="f">' + mhz(s.frequency) + ' <span style="font-size:15px;color:var(--muted)">MHz</span></div>' +
+      '<div class="m">' + esc(band(s.frequency)) + '<span class="mode">' + esc(s.mode) + '</span> · spotted ' + ago(t) + '</div></div></div>' +
+      '<div class="sp-head">Spots this activation <span style="color:var(--muted);font-weight:400;text-transform:none">· <span class="rbn">orange</span> = RBN skimmer</span></div>' +
+      '<div class="spots">' + (rows || '<div class="msg">No spot history yet.</div>') + '</div>';
+  }
+
+  function renderRecent(prof){
+    box.className = "box recent";
+    statusEl.textContent = "NOT ON THE AIR";
+    var a = ((prof && prof.recent_activity) || {}).activations || [];
+    a = a[0];
+    if (!a) { body.innerHTML = '<div class="msg">No recent activations listed on pota.app.</div>'; return; }
+    var d = String(a.date || "").slice(0,10);
+    var nice = d; try { nice = new Date(d + "T12:00:00Z").toLocaleDateString("en-US", {month:"short", day:"numeric", year:"numeric", timeZone:"UTC"}); } catch(e){}
+    body.innerHTML =
+      '<div class="sp-head" style="margin-top:12px">Most recent activation · ' + esc(nice) + '</div>' +
+      '<div class="park" style="margin-top:2px"><div><div class="pname"><a class="ref" href="' + POTA + esc(a.reference) + '" target="_blank" rel="noopener">' + esc(a.reference) + '</a>' + esc(a.park || a.name || "") + '</div>' +
+      '<div class="loc">' + esc(a.location || a.locationDesc || "") + '</div></div>' +
+      '<div class="stats"><div class="n">' + esc(a.total) + '</div><div class="l">QSOs · CW ' + esc(a.cw || 0) + ' · Data ' + esc(a.data || 0) + ' · Phone ' + esc(a.phone || 0) + '</div></div></div>' +
+      '<div class="msg" style="font-size:13px">This box switches to live spots automatically when ' + esc(CALL) + ' is spotted on pota.app.</div>';
+  }
+
+  var profCache = null;
+  function tick(){
+    getJSON(API + "/spot/activator").then(function(spots){
+      var mine = (spots || []).filter(function(s){ return base(s.activator) === CALL; });
+      mine.sort(function(x, y){ return (utc(y.spotTime) || 0) - (utc(x.spotTime) || 0); });
+      if (mine.length) {
+        var s = mine[0];
+        return Promise.all([
+          park(s.reference),
+          getJSON(API + "/spot/comments/" + encodeURIComponent(s.activator) + "/" + encodeURIComponent(s.reference)).catch(function(){ return []; })
+        ]).then(function(r){
+          var hist = Array.isArray(r[1]) && r[1].length ? r[1] : mine;
+          hist = hist.slice().sort(function(x, y){ return (utc(y.spotTime) || 0) - (utc(x.spotTime) || 0); });
+          renderLive(s, r[0] || {}, hist);
+        });
+      }
+      return (profCache ? Promise.resolve(profCache) : getJSON(API + "/profile/" + encodeURIComponent(CALL)).then(function(p){ profCache = p; return p; }))
+        .then(renderRecent);
+    }).then(function(){
+      upd.textContent = "pota.app · checked " + hhmm(new Date()) + "z";
+    }).catch(function(e){
+      statusEl.textContent = "POTA STATUS";
+      upd.textContent = "pota.app unreachable, retrying";
+      if (!body.querySelector(".park")) body.innerHTML = '<div class="msg">Couldn’t reach pota.app right now.</div>';
+    });
+  }
+  tick();
+  setInterval(tick, REFRESH);
+  setInterval(function(){ profCache = null; }, 30 * 60 * 1000);
+})();
+</script>
+</body>
+</html>
