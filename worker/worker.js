@@ -35,9 +35,12 @@ a{color:inherit}
 .badge{display:inline-flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.08em;font-size:15px;padding:6px 14px;border-radius:999px;background:rgba(0,0,0,.3);color:var(--muted);border:1px solid var(--edge)}
 .badge i{width:10px;height:10px;border-radius:50%;background:var(--muted);display:inline-block}
 .live .badge{color:#fff;background:rgba(226,54,58,.18);border-color:rgba(226,54,58,.7)}
-.live .badge i{background:var(--red);animation:ping 1.6s ease-out infinite}
-@keyframes ping{0%{box-shadow:0 0 0 0 rgba(226,54,58,.7)}100%{box-shadow:0 0 0 10px rgba(226,54,58,0)}}
-@media (prefers-reduced-motion:reduce){.live .badge i{animation:none}}
+.live .badge{animation:glow 2s ease-in-out infinite}
+.live .badge i{background:var(--red);animation:ping 2s ease-out infinite}
+@keyframes ping{0%{box-shadow:0 0 0 0 rgba(226,54,58,.8)}70%,100%{box-shadow:0 0 0 12px rgba(226,54,58,0)}}
+@keyframes glow{0%,100%{background:rgba(226,54,58,.16);border-color:rgba(226,54,58,.6);box-shadow:0 0 0 0 rgba(226,54,58,0)}
+50%{background:rgba(226,54,58,.36);border-color:rgba(255,110,110,.95);box-shadow:0 0 14px 2px rgba(226,54,58,.45)}}
+@media (prefers-reduced-motion:reduce){.live .badge,.live .badge i{animation:none}}
 .upd{font-size:12px;color:var(--muted)}
 .park{display:grid;grid-template-columns:1fr auto;gap:6px 16px;align-items:end;margin-top:12px}
 .ref{display:inline-block;background:var(--blue);color:#fff;font-weight:700;font-size:14px;padding:2px 10px;border-radius:999px;text-decoration:none;margin-right:8px;vertical-align:2px}
