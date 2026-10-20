@@ -50,13 +50,17 @@ a{color:inherit}
 .mode{display:inline-block;font-size:12px;font-weight:700;border-radius:999px;padding:1px 8px;margin-left:6px;border:1px solid var(--edge);color:var(--ink)}
 .sp-head{margin:14px 0 4px;font-size:13px;font-weight:800;color:var(--cyan);letter-spacing:.04em;text-transform:uppercase}
 .spots{max-height:110px;overflow:auto}
-.sp{display:grid;grid-template-columns:52px 112px 90px 1fr;gap:10px;padding:5px 0;border-top:1px solid var(--line);font-size:13px;align-items:baseline}
+.sp{display:grid;grid-template-columns:52px 112px 116px 1fr;gap:10px;padding:5px 0;border-top:1px solid var(--line);font-size:13px;align-items:baseline}
 .sp .t{color:var(--muted);font-variant-numeric:tabular-nums}
 .sp .fq{font-weight:700;font-variant-numeric:tabular-nums}
 .sp .by{font-weight:700;color:#fff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .sp .c{color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .rbn,.sp .by.rbn{color:var(--orange);font-weight:700}
 .sp .x{font-size:11px;color:var(--muted);font-weight:600}
+.sp.self{background:rgba(41,196,196,.10);border-left:3px solid var(--cyan);padding-left:6px}
+.sp.self .by{color:var(--cyan)}
+.sp .tag{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.06em;color:#0F1B33;background:var(--cyan);border-radius:4px;padding:0 5px;margin-right:6px;vertical-align:1px}
+.sum b.selfc{color:var(--cyan)}
 .sum{font-size:13px;color:var(--muted);margin:0 0 6px}.sum b{color:var(--ink)}.sum b.rbn{color:var(--orange)}
 .sub{font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--orange);padding:6px 0 2px;border-top:1px solid var(--line)}
 .recent .pname{font-size:20px}
@@ -91,7 +95,10 @@ async function render(call, solo) {
     let hist = Array.isArray(c) && c.length ? c : mine;
     hist = hist.slice().sort((x, y) => (utc(y.spotTime) || 0) - (utc(x.spotTime) || 0));
     // split hunters vs RBN; merge repeat RBN reports (same skimmer, same ~1 kHz)
-    const hunters = hist.filter(h => !isRbn(h));
+    const me = base(s.activator);
+    const isSelf = h => !isRbn(h) && base(h.spotter) === me;
+    const selfs = hist.filter(isSelf);
+    const hunters = hist.filter(h => !isRbn(h) && !isSelf(h));
     const rbnAll = hist.filter(isRbn);
     const rbnMap = new Map();
     for (const h of rbnAll) {
@@ -102,12 +109,13 @@ async function render(call, solo) {
     const rbn = [...rbnMap.values()];
     const skimmers = new Set(rbnAll.map(h => String(h.spotter || "").toUpperCase())).size;
     const bands = [...new Set(hist.map(h => band(h.frequency)).filter(Boolean))];
-    const row = (h, n) => `<div class="sp"><div class="t">${hhmm(utc(h.spotTime))}z</div><div class="fq">${mhz(h.frequency)}<span class="mode">${esc(h.mode)}</span></div><div class="by${isRbn(h) ? " rbn" : ""}" title="${esc(h.spotter)}">${esc(h.spotter)}${n > 1 ? ` <span class="x">×${n}</span>` : ""}</div><div class="c" title="${esc(h.comments)}">${esc(h.comments)}</div></div>`;
-    const rows = hunters.slice(0, 25).map(h => row(h, 1)).join("") +
+    const row = (h, n, self) => `<div class="sp${self ? " self" : ""}"><div class="t">${hhmm(utc(h.spotTime))}z</div><div class="fq">${mhz(h.frequency)}<span class="mode">${esc(h.mode)}</span></div><div class="by${isRbn(h) ? " rbn" : ""}" title="${esc(h.spotter)}">${self ? '<span class="tag">SELF</span>' : ""}${esc(h.spotter)}${n > 1 ? ` <span class="x">×${n}</span>` : ""}</div><div class="c" title="${esc(h.comments)}">${esc(h.comments)}</div></div>`;
+    const rows = selfs.slice(0, 5).map(h => row(h, 1, true)).join("") +
+      hunters.slice(0, 25).map(h => row(h, 1)).join("") +
       (hunters.length && rbn.length ? '<div class="sub">RBN skimmers</div>' : "") +
       rbn.slice(0, 25).map(g => row(g.h, g.n)).join("");
     const plural = (n, w) => n + " " + w + (n === 1 ? "" : "s");
-    const summary = `<div class="sum"><b>${plural(hunters.length, "hunter spot")}</b> · <b class="rbn">${rbnAll.length} RBN</b>${rbnAll.length ? " from " + plural(skimmers, "skimmer") : ""}${bands.length ? " · heard on " + esc(bands.join(", ")) : ""}</div>`;
+    const summary = `<div class="sum"><b>${plural(hunters.length, "hunter spot")}</b> · ${selfs.length ? `<b class="selfc">${plural(selfs.length, "self-spot")}</b> · ` : ""}<b class="rbn">${rbnAll.length} RBN</b>${rbnAll.length ? " from " + plural(skimmers, "skimmer") : ""}${bands.length ? " · heard on " + esc(bands.join(", ")) : ""}</div>`;
     const name = (p && p.name) || s.name || s.parkName || "";
     const loc = (p && p.locationDesc) || s.locationDesc || "";
     const inner = `<div class="park"><div><div class="pname"><a class="ref" href="${POTA}${esc(s.reference)}" target="_blank" rel="noopener">${esc(s.reference)}</a>${esc(name)}</div>
