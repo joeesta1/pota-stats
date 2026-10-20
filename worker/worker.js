@@ -40,7 +40,11 @@ a{color:inherit}
 @keyframes ping{0%{box-shadow:0 0 0 0 rgba(226,54,58,.8)}70%,100%{box-shadow:0 0 0 12px rgba(226,54,58,0)}}
 @keyframes glow{0%,100%{background:rgba(226,54,58,.16);border-color:rgba(226,54,58,.6);box-shadow:0 0 0 0 rgba(226,54,58,0)}
 50%{background:rgba(226,54,58,.36);border-color:rgba(255,110,110,.95);box-shadow:0 0 14px 2px rgba(226,54,58,.45)}}
-@media (prefers-reduced-motion:reduce){.live .badge,.live .badge i{animation:none}}
+.yagi{display:block;margin-left:2px;margin-right:-4px;overflow:visible}
+.yagi .w{opacity:.15;animation:wave 1.5s ease-out infinite}
+.yagi .w2{animation-delay:.25s}.yagi .w3{animation-delay:.5s}
+@keyframes wave{0%{opacity:.15}25%{opacity:1}70%,100%{opacity:.15}}
+@media (prefers-reduced-motion:reduce){.live .badge,.live .badge i,.yagi .w{animation:none}.yagi .w{opacity:.8}}
 .upd{font-size:12px;color:var(--muted)}
 .park{display:grid;grid-template-columns:1fr auto;gap:6px 16px;align-items:end;margin-top:12px}
 .ref{display:inline-block;background:var(--blue);color:#fff;font-weight:700;font-size:14px;padding:2px 10px;border-radius:999px;text-decoration:none;margin-right:8px;vertical-align:2px}
@@ -74,12 +78,22 @@ a{color:inherit}
 @media (max-width:560px){.park{grid-template-columns:1fr}.freq,.stats{text-align:left}.sp{grid-template-columns:46px 104px 1fr}.sp .c{display:none}}
 `;
 
+// Yagi (side view: boom, mast, 4 elements, reflector longest) with 3 radio-wave arcs to the right
+const YAGI = `<svg class="yagi" viewBox="0 0 64 26" width="64" height="26" aria-hidden="true">
+<g stroke="#fff" stroke-linecap="round" fill="none">
+<path stroke-width="1.8" d="M2 10H33"/><path stroke-width="1.6" d="M17 10V25"/>
+<path stroke-width="1.6" d="M3 1.5V18.5"/><path stroke-width="1.6" d="M12 3V17"/><path stroke-width="1.6" d="M22 4.5V15.5"/><path stroke-width="1.6" d="M32 6V14"/>
+</g>
+<g stroke="#FF7A7A" stroke-width="2" stroke-linecap="round" fill="none">
+<path class="w w1" d="M38 6Q41.5 10 38 14"/><path class="w w2" d="M44 3.2Q49.5 10 44 16.8"/><path class="w w3" d="M50 0.8Q57.5 10 50 19.2"/>
+</g></svg>`;
+
 function page(cls, status, inner, call, solo) {
   return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="refresh" content="${TTL}"><title>${esc(call)} On the Air</title>
 <link href="https://fonts.googleapis.com/css2?family=Overpass:wght@400;600;800&display=swap" rel="stylesheet">
 <style>${CSS}</style></head><body${solo ? ' class="solo"' : ""}>
-<div class="box ${cls}"><div class="inner"><div class="top"><span class="badge"><i></i><span>${status}</span></span>
+<div class="box ${cls}"><div class="inner"><div class="top"><span class="badge"><i></i><span>${status}</span>${cls === "live" ? YAGI : ""}</span>
 <span class="upd">pota.app · checked ${hhmm(new Date())}z</span></div>${inner}</div></div></body></html>`;
 }
 
