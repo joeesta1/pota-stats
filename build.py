@@ -25,25 +25,25 @@ CSS = r"""<style>
   .sign{background:var(--card);border:1px solid var(--edge);border-radius:16px;overflow:hidden}
   .sign::before{content:"";display:block;height:6px;
     background:linear-gradient(90deg,#1B2A6B,var(--blue),var(--cyan),var(--yellow),var(--orange),var(--red))}
-  .sign-inner{padding:22px 24px;display:grid;grid-template-columns:auto 1fr;gap:18px 22px;align-items:center}
+  .sign-inner{padding:14px 18px;display:grid;grid-template-columns:auto 1fr;gap:12px 18px;align-items:center}
   .avatar{width:80px;height:80px;border-radius:50%;border:3px solid var(--cyan);object-fit:cover;background:#1B2A6B}
   .call{font-size:46px;font-weight:800;letter-spacing:.06em;line-height:1;text-decoration:none;display:inline-block;color:#fff}
   .call:hover,.call:focus-visible{text-decoration:underline;text-underline-offset:6px;text-decoration-color:var(--cyan)}
   .who{margin-top:8px;color:var(--muted)}
-  .big{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-  .big>div{background:rgba(0,0,0,.25);border-radius:12px;padding:14px 16px}
+  .big{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+  .big>div{background:rgba(0,0,0,.25);border-radius:10px;padding:8px 12px}
   .big>div:nth-child(1) .num{color:var(--cyan)}
   .big>div:nth-child(2) .num{color:var(--yellow)}
   .big>div:nth-child(3) .num{color:var(--orange)}
-  .num{font-size:40px;font-weight:800;line-height:1;font-variant-numeric:tabular-nums;color:#fff}
-  .lbl{font-size:14px;color:var(--muted);margin-top:6px}
+  .num{font-size:28px;font-weight:800;line-height:1;font-variant-numeric:tabular-nums;color:#fff}
+  .lbl{font-size:13px;color:var(--muted);margin-top:3px}
 
-  .pair{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
-  .panel{background:var(--card);border:1px solid var(--edge);border-radius:16px;padding:18px 22px}
-  .panel h2{margin:0 0 10px;font-size:20px;font-weight:800;color:var(--cyan)}
+  .pair{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+  .panel{background:var(--card);border:1px solid var(--edge);border-radius:12px;padding:10px 14px}
+  .panel h2{margin:0 0 4px;font-size:16px;font-weight:800;color:var(--cyan)}
   .panel:nth-child(2) h2{color:var(--orange)}
-  .panel .stats{display:flex;gap:28px;flex-wrap:wrap}
-  .panel .num{font-size:30px}
+  .panel .stats{display:flex;gap:20px;flex-wrap:wrap}
+  .panel .num{font-size:22px}
 
   .recent{margin-top:14px;background:var(--card);border:1px solid var(--edge);border-radius:16px;padding:18px 22px}
   .recent-head{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:8px;margin-bottom:8px}
@@ -72,17 +72,17 @@ CSS = r"""<style>
 
   @media (max-width:640px){
     .call{font-size:34px}
-    .num{font-size:30px}
+    .num{font-size:24px}
     .big,.pair{grid-template-columns:1fr}
     .act{grid-template-columns:auto 1fr auto;grid-template-areas:"ref park total" "date date bar"}
     .act .refcell{grid-area:ref}.act .park{grid-area:park}.act .total{grid-area:total}
     .act .date{grid-area:date}.act .bar{grid-area:bar;align-self:center}
   }
 
-  .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-top:14px}
-  .tile{background:var(--card);border:1px solid var(--edge);border-radius:14px;padding:14px 16px}
-  .tile .num{font-size:30px}
-  .tile .sub{font-size:13px;color:var(--muted);margin-top:2px}
+  .tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin-top:8px}
+  .tile{background:var(--card);border:1px solid var(--edge);border-radius:10px;padding:8px 12px}
+  .tile .num{font-size:22px}
+  .tile .sub{font-size:12px;color:var(--muted);margin-top:1px}
   .hunt{display:grid;grid-template-columns:110px 120px 1fr auto;gap:14px;align-items:center;padding:10px 0;border-top:1px solid var(--line)}
   .hcall{font-weight:800;color:#fff;letter-spacing:.03em}
   .tag{display:inline-block;font-size:13px;color:var(--muted);border:1px solid var(--edge);border-radius:999px;padding:1px 9px;margin-left:6px}
