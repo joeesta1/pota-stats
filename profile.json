@@ -331,8 +331,8 @@
     "callsign": "N8JMS",
     "band": "40M",
     "mode": "CW",
-    "reference": "US-5455",
-    "park": "Zaleski State Forest",
+    "reference": "US-1968",
+    "park": "Lake Hope State Park",
     "location": "US-OH"
    },
    {
@@ -340,8 +340,8 @@
     "callsign": "N8JMS",
     "band": "40M",
     "mode": "CW",
-    "reference": "US-1968",
-    "park": "Lake Hope State Park",
+    "reference": "US-5455",
+    "park": "Zaleski State Forest",
     "location": "US-OH"
    },
    {
@@ -418,7 +418,7 @@
    },
    {
     "date": "2026-10-18T17:35:00",
-    "callsign": "KE9JS",
+    "callsign": "KE9JQ",
     "band": "20M",
     "mode": "PHONE",
     "reference": "US-4112",
@@ -427,7 +427,7 @@
    },
    {
     "date": "2026-10-18T17:35:00",
-    "callsign": "KE9JS",
+    "callsign": "KE9JQ",
     "band": "20M",
     "mode": "PHONE",
     "reference": "US-9893",
@@ -436,7 +436,7 @@
    },
    {
     "date": "2026-10-18T17:35:00",
-    "callsign": "KE9JQ",
+    "callsign": "KE9JS",
     "band": "20M",
     "mode": "PHONE",
     "reference": "US-4112",
@@ -445,7 +445,7 @@
    },
    {
     "date": "2026-10-18T17:35:00",
-    "callsign": "KE9JQ",
+    "callsign": "KE9JS",
     "band": "20M",
     "mode": "PHONE",
     "reference": "US-9893",
@@ -466,8 +466,8 @@
     "callsign": "KB3HJC",
     "band": "40M",
     "mode": "PHONE",
-    "reference": "US-5476",
-    "park": "Susquehannock State Forest",
+    "reference": "US-1406",
+    "park": "Prouty Place State Park",
     "location": "US-PA"
    },
    {
@@ -475,8 +475,8 @@
     "callsign": "KB3HJC",
     "band": "40M",
     "mode": "PHONE",
-    "reference": "US-1406",
-    "park": "Prouty Place State Park",
+    "reference": "US-5476",
+    "park": "Susquehannock State Forest",
     "location": "US-PA"
    },
    {
