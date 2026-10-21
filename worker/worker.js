@@ -42,7 +42,7 @@ async function pickActivation(call, mine, extra) {
   const res = await Promise.all([...cands].map(async ([ref, c]) => {
     const com = await j("/spot/comments/" + encodeURIComponent(c.activator) + "/" + encodeURIComponent(ref), 30).catch(() => []);
     const map = new Map();
-    for (const h of (c.seed || []).concat(Array.isArray(com) ? com : [], mine.filter(m => m.reference === ref))) {
+    for (const h of (c.seed || []).concat(mine.filter(m => m.reference === ref), Array.isArray(com) ? com : [])) {
       if (h.reference && h.reference !== ref) continue;
       map.set(sid(h), h);
     }
@@ -213,10 +213,51 @@ ${summary}
 // ---------------------------------------------------------------------------
 const IDLE = 30 * 60 * 1000;
 const HOLD = 2 * 3600 * 1000;
-const MAXHIST = 400;
+const MAXHIST = 2000;
 const KEY = call => "act:" + call;
 const isQrtText = h => /\bQRT\b/i.test(h.comments || "");
 const hasSelf = act => !!(act && act.hist && act.hist.some(h => selfOf(h, base(act.activator))));
+// ---- Permanent archive: each finished activation is saved as arch:<CALL>:<YYYY-MM-DD>_<REF>.
+// GET /archive            -> index of all activations (incl. the current/most recent one)
+// GET /archive/<id>.json  -> full record;  GET /archive/<id>.csv -> spots as CSV
+const aid = act => String(act.start || act.last || "").slice(0, 10) + "_" + act.ref;
+const ameta = act => ({ id: aid(act), ref: act.ref, name: act.name || "", start: act.start, last: act.last, spots: act.hist.length });
+async function archive(env, call, act) {
+  if (!hasSelf(act)) return;
+  await env.LIVE.put("arch:" + call + ":" + aid(act), JSON.stringify(act), { metadata: ameta(act) });
+}
+const kindOf = (h, me) => isRbn(h) ? "rbn" : base(h.spotter) === me ? "self" : "hunter";
+const csvCell = v => { v = v == null ? "" : String(v); return /[",\r\n]/.test(v) ? '"' + v.replace(/"/g, '""') + '"' : v; };
+function toCsv(act) {
+  const me = base(act.activator);
+  const rows = [["activation_id", "park", "park_name", "spot_time_utc", "spotter", "type", "frequency_khz", "band", "mode", "source", "comments", "spot_id"]];
+  for (const h of act.hist.slice().reverse()) rows.push([aid(act), act.ref, act.name, h.spotTime, h.spotter, kindOf(h, me), h.frequency, band(h.frequency), h.mode, h.source, h.comments, h.spotId]);
+  return rows.map(r => r.map(csvCell).join(",")).join("\r\n") + "\r\n";
+}
+async function archiveApi(env, call, path) {
+  const json = (o, st = 200) => new Response(JSON.stringify(o), { status: st, headers: { "content-type": "application/json; charset=utf-8", "cache-control": "no-store" } });
+  const cur = await env.LIVE.get(KEY(call), "json");
+  const curOk = hasSelf(cur);
+  if (path === "/archive" || path === "/archive/" || path === "/archive.json") {
+    const list = []; let cursor;
+    do {
+      const r = await env.LIVE.list({ prefix: "arch:" + call + ":", cursor });
+      for (const k of r.keys) if (k.metadata) list.push(Object.assign({ current: false }, k.metadata));
+      cursor = r.list_complete ? null : r.cursor;
+    } while (cursor);
+    if (curOk) { const m = ameta(cur); const i = list.findIndex(x => x.id === m.id); if (i >= 0) list.splice(i, 1); list.push(Object.assign({ current: true }, m)); }
+    list.sort((a, b) => String(a.start).localeCompare(String(b.start)));
+    return json({ call, activations: list });
+  }
+  const m = path.match(/^\/archive\/([0-9]{4}-[0-9]{2}-[0-9]{2}_[A-Z0-9-]+)\.(json|csv)$/i);
+  if (!m) return json({ error: "not found" }, 404);
+  const id = m[1].toUpperCase().replace(/^(\d{4}-\d{2}-\d{2})_/, "$1_");
+  let act = curOk && aid(cur) === id ? cur : await env.LIVE.get("arch:" + call + ":" + id, "json");
+  if (!act) return json({ error: "not found" }, 404);
+  if (m[2].toLowerCase() === "csv") return new Response(toCsv(act), { headers: { "content-type": "text/csv; charset=utf-8", "cache-control": "no-store", "content-disposition": `inline; filename="${call}_${id}.csv"` } });
+  return json(act);
+}
+
 const slim = h => ({ spotId: h.spotId, spotTime: h.spotTime, spotter: h.spotter, frequency: h.frequency, mode: h.mode, source: h.source, comments: h.comments });
 
 async function poll(env, call) {
@@ -233,6 +274,7 @@ async function poll(env, call) {
   const tT = utc(top.spotTime);
   let act = prev ? JSON.parse(JSON.stringify(prev)) : null;
   if (!act || act.ref !== pick.ref || !hasSelf(act) || (tT && act.last && tT - utc(act.last) > GAP)) {
+    if (hasSelf(prev)) await archive(env, call, prev); // the previous activation is finished: keep it forever
     act = { activator: pick.activator, ref: pick.ref, hist: [] };
   }
   if (!act.loc) {
@@ -350,6 +392,7 @@ export default {
     const url = new URL(request.url);
     const home = (env.CALL || "W4WJE").toUpperCase();
     const call = (url.searchParams.get("call") || home).toUpperCase().replace(/[^A-Z0-9\/]/g, "").slice(0, 15) || home;
+    if (url.pathname.startsWith("/archive")) return env.LIVE ? archiveApi(env, home, url.pathname) : new Response("KV not bound", { status: 501 });
     const solo = url.searchParams.has("solo");
     const cacheKey = new Request(url.origin + "/?call=" + call + (solo ? "&solo" : ""));
     const cache = caches.default;
