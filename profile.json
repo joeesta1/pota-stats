@@ -282,6 +282,15 @@
   ],
   "hunter_qsos": [
    {
+    "date": "2026-10-21T13:17:00",
+    "callsign": "KB4VU",
+    "band": "30M",
+    "mode": "CW",
+    "reference": "US-6291",
+    "park": "Fred C. Babcock/Cecil M. Webb Wildlife Management Area",
+    "location": "US-FL"
+   },
+   {
     "date": "2026-10-20T23:33:54",
     "callsign": "WB0RLJ",
     "band": "20M",
@@ -495,15 +504,6 @@
     "mode": "CW",
     "reference": "GB-0711",
     "park": "King Charles III England Coast National Scenic Trail",
-    "location": "GB-ENG"
-   },
-   {
-    "date": "2026-10-18T14:18:06",
-    "callsign": "M0TTQ",
-    "band": "15M",
-    "mode": "CW",
-    "reference": "GB-4591",
-    "park": "Farlington Marshes Nature Reserve",
     "location": "GB-ENG"
    }
   ]
