@@ -282,6 +282,15 @@
   ],
   "hunter_qsos": [
    {
+    "date": "2026-10-20T23:33:54",
+    "callsign": "WB0RLJ",
+    "band": "20M",
+    "mode": "CW",
+    "reference": "US-4011",
+    "park": "Chalco Hills State Recreation Area",
+    "location": "US-NE"
+   },
+   {
     "date": "2026-10-20T21:11:00",
     "callsign": "W0SA",
     "band": "20M",
@@ -495,15 +504,6 @@
     "mode": "CW",
     "reference": "GB-4591",
     "park": "Farlington Marshes Nature Reserve",
-    "location": "GB-ENG"
-   },
-   {
-    "date": "2026-10-18T14:18:06",
-    "callsign": "M0TTQ",
-    "band": "15M",
-    "mode": "CW",
-    "reference": "GB-0022",
-    "park": "Langstone Harbour SSSI & Conservation Reserve",
     "location": "GB-ENG"
    }
   ]
