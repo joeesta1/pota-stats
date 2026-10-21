@@ -282,6 +282,96 @@
   ],
   "hunter_qsos": [
    {
+    "date": "2026-10-21T17:45:24",
+    "callsign": "KG4EXY",
+    "band": "40M",
+    "mode": "CW",
+    "reference": "US-0712",
+    "park": "Manassas National Battlefield",
+    "location": "US-VA"
+   },
+   {
+    "date": "2026-10-21T17:45:24",
+    "callsign": "KG4EXY",
+    "band": "40M",
+    "mode": "CW",
+    "reference": "US-9935",
+    "park": "Virginia Bird & Wildlife State Trail",
+    "location": "US-VA"
+   },
+   {
+    "date": "2026-10-21T17:17:09",
+    "callsign": "KG4EXY",
+    "band": "30M",
+    "mode": "CW",
+    "reference": "US-9935",
+    "park": "Virginia Bird & Wildlife State Trail",
+    "location": "US-VA"
+   },
+   {
+    "date": "2026-10-21T17:17:09",
+    "callsign": "KG4EXY",
+    "band": "30M",
+    "mode": "CW",
+    "reference": "US-0712",
+    "park": "Manassas National Battlefield",
+    "location": "US-VA"
+   },
+   {
+    "date": "2026-10-21T17:04:01",
+    "callsign": "KG4EXY",
+    "band": "15M",
+    "mode": "CW",
+    "reference": "US-9935",
+    "park": "Virginia Bird & Wildlife State Trail",
+    "location": "US-VA"
+   },
+   {
+    "date": "2026-10-21T17:04:01",
+    "callsign": "KG4EXY",
+    "band": "15M",
+    "mode": "CW",
+    "reference": "US-0712",
+    "park": "Manassas National Battlefield",
+    "location": "US-VA"
+   },
+   {
+    "date": "2026-10-21T16:45:52",
+    "callsign": "KG4EXY",
+    "band": "17M",
+    "mode": "CW",
+    "reference": "US-0712",
+    "park": "Manassas National Battlefield",
+    "location": "US-VA"
+   },
+   {
+    "date": "2026-10-21T16:45:52",
+    "callsign": "KG4EXY",
+    "band": "17M",
+    "mode": "CW",
+    "reference": "US-9935",
+    "park": "Virginia Bird & Wildlife State Trail",
+    "location": "US-VA"
+   },
+   {
+    "date": "2026-10-21T15:51:59",
+    "callsign": "KG4EXY",
+    "band": "20M",
+    "mode": "CW",
+    "reference": "US-0712",
+    "park": "Manassas National Battlefield",
+    "location": "US-VA"
+   },
+   {
+    "date": "2026-10-21T15:51:59",
+    "callsign": "KG4EXY",
+    "band": "20M",
+    "mode": "CW",
+    "reference": "US-9935",
+    "park": "Virginia Bird & Wildlife State Trail",
+    "location": "US-VA"
+   },
+   {
     "date": "2026-10-21T13:17:00",
     "callsign": "KB4VU",
     "band": "30M",
@@ -415,96 +505,6 @@
     "reference": "US-1957",
     "park": "Headlands Beach State Park",
     "location": "US-OH"
-   },
-   {
-    "date": "2026-10-18T17:46:31",
-    "callsign": "AD7N",
-    "band": "15M",
-    "mode": "CW",
-    "reference": "US-5968",
-    "park": "Howard Slough State Waterfowl Management Area",
-    "location": "US-UT"
-   },
-   {
-    "date": "2026-10-18T17:35:00",
-    "callsign": "KE9JQ",
-    "band": "20M",
-    "mode": "PHONE",
-    "reference": "US-4112",
-    "park": "Cache River State Natural Area",
-    "location": "US-IL"
-   },
-   {
-    "date": "2026-10-18T17:35:00",
-    "callsign": "KE9JQ",
-    "band": "20M",
-    "mode": "PHONE",
-    "reference": "US-9893",
-    "park": "Tunnel Hill State Trail",
-    "location": "US-IL"
-   },
-   {
-    "date": "2026-10-18T17:35:00",
-    "callsign": "KE9JS",
-    "band": "20M",
-    "mode": "PHONE",
-    "reference": "US-4112",
-    "park": "Cache River State Natural Area",
-    "location": "US-IL"
-   },
-   {
-    "date": "2026-10-18T17:35:00",
-    "callsign": "KE9JS",
-    "band": "20M",
-    "mode": "PHONE",
-    "reference": "US-9893",
-    "park": "Tunnel Hill State Trail",
-    "location": "US-IL"
-   },
-   {
-    "date": "2026-10-18T16:57:31",
-    "callsign": "KF8ERJ",
-    "band": "40M",
-    "mode": "PHONE",
-    "reference": "US-1825",
-    "park": "Tygart Lake State Park",
-    "location": "US-WV"
-   },
-   {
-    "date": "2026-10-18T16:56:04",
-    "callsign": "KB3HJC",
-    "band": "40M",
-    "mode": "PHONE",
-    "reference": "US-1406",
-    "park": "Prouty Place State Park",
-    "location": "US-PA"
-   },
-   {
-    "date": "2026-10-18T16:56:04",
-    "callsign": "KB3HJC",
-    "band": "40M",
-    "mode": "PHONE",
-    "reference": "US-5476",
-    "park": "Susquehannock State Forest",
-    "location": "US-PA"
-   },
-   {
-    "date": "2026-10-18T15:39:19",
-    "callsign": "KG1A",
-    "band": "20M",
-    "mode": "CW",
-    "reference": "US-4619",
-    "park": "Deep Creek State Forest",
-    "location": "US-FL"
-   },
-   {
-    "date": "2026-10-18T14:18:06",
-    "callsign": "M0TTQ",
-    "band": "15M",
-    "mode": "CW",
-    "reference": "GB-0711",
-    "park": "King Charles III England Coast National Scenic Trail",
-    "location": "GB-ENG"
    }
   ]
  },
