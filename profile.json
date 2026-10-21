@@ -11,14 +11,14 @@
  "gravatar": "03907e063242210292b4fad74b2c595b",
  "stats": {
   "activator": {
-   "activations": 758,
+   "activations": 760,
    "parks": 148,
-   "qsos": 24560
+   "qsos": 24622
   },
   "attempts": {
-   "activations": 758,
+   "activations": 760,
    "parks": 148,
-   "qsos": 24560
+   "qsos": 24622
   },
   "hunter": {
    "parks": 2322,
@@ -30,14 +30,24 @@
  "recent_activity": {
   "activations": [
    {
-    "date": "2026-10-18",
-    "reference": "US-13543",
-    "park": "US National Arboretum Botanical Gardens",
-    "location": "US-DC",
-    "cw": 84,
+    "date": "2026-10-21",
+    "reference": "US-0712",
+    "park": "Manassas National Battlefield",
+    "location": "US-VA",
+    "cw": 31,
     "data": 0,
     "phone": 0,
-    "total": 84
+    "total": 31
+   },
+   {
+    "date": "2026-10-21",
+    "reference": "US-9935",
+    "park": "Virginia Bird & Wildlife State Trail",
+    "location": "US-VA",
+    "cw": 31,
+    "data": 0,
+    "phone": 0,
+    "total": 31
    },
    {
     "date": "2026-10-18",
@@ -68,6 +78,16 @@
     "data": 0,
     "phone": 0,
     "total": 15
+   },
+   {
+    "date": "2026-10-18",
+    "reference": "US-13543",
+    "park": "US National Arboretum Botanical Gardens",
+    "location": "US-DC",
+    "cw": 84,
+    "data": 0,
+    "phone": 0,
+    "total": 84
    },
    {
     "date": "2026-10-15",
@@ -151,26 +171,6 @@
    },
    {
     "date": "2026-10-08",
-    "reference": "US-4564",
-    "park": "Potomac Heritage Trail National Scenic Trail",
-    "location": "US-VA",
-    "cw": 34,
-    "data": 0,
-    "phone": 0,
-    "total": 34
-   },
-   {
-    "date": "2026-10-08",
-    "reference": "US-9935",
-    "park": "Virginia Bird & Wildlife State Trail",
-    "location": "US-VA",
-    "cw": 34,
-    "data": 0,
-    "phone": 0,
-    "total": 34
-   },
-   {
-    "date": "2026-10-08",
     "reference": "US-9898",
     "park": "Mount Vernon National Historic Trail",
     "location": "US-VA",
@@ -180,9 +180,29 @@
     "total": 34
    },
    {
+    "date": "2026-10-08",
+    "reference": "US-9935",
+    "park": "Virginia Bird & Wildlife State Trail",
+    "location": "US-VA",
+    "cw": 34,
+    "data": 0,
+    "phone": 0,
+    "total": 34
+   },
+   {
+    "date": "2026-10-08",
+    "reference": "US-4564",
+    "park": "Potomac Heritage Trail National Scenic Trail",
+    "location": "US-VA",
+    "cw": 34,
+    "data": 0,
+    "phone": 0,
+    "total": 34
+   },
+   {
     "date": "2026-10-07",
-    "reference": "US-0670",
-    "park": "George Washington Memorial Parkway",
+    "reference": "US-9935",
+    "park": "Virginia Bird & Wildlife State Trail",
     "location": "US-VA",
     "cw": 24,
     "data": 0,
@@ -191,8 +211,8 @@
    },
    {
     "date": "2026-10-07",
-    "reference": "US-9935",
-    "park": "Virginia Bird & Wildlife State Trail",
+    "reference": "US-0670",
+    "park": "George Washington Memorial Parkway",
     "location": "US-VA",
     "cw": 24,
     "data": 0,
@@ -258,29 +278,18 @@
     "data": 0,
     "phone": 5,
     "total": 22
-   },
-   {
-    "date": "2026-10-04",
-    "reference": "US-9935",
-    "park": "Virginia Bird & Wildlife State Trail",
-    "location": "US-VA",
-    "cw": 17,
-    "data": 0,
-    "phone": 5,
-    "total": 22
-   },
-   {
-    "date": "2026-08-08",
-    "reference": "US-7014",
-    "park": "Shannondale Springs Wildlife Management Area",
-    "location": "US-WV",
-    "cw": 21,
-    "data": 0,
-    "phone": 17,
-    "total": 38
    }
   ],
   "hunter_qsos": [
+   {
+    "date": "2026-10-21T22:53:43",
+    "callsign": "AK0A",
+    "band": "40M",
+    "mode": "CW",
+    "reference": "US-2336",
+    "park": "El Dorado State Park",
+    "location": "US-KS"
+   },
    {
     "date": "2026-10-21T17:45:24",
     "callsign": "KG4EXY",
@@ -496,15 +505,6 @@
     "reference": "US-6866",
     "park": "Nehantic State Forest",
     "location": "US-CT"
-   },
-   {
-    "date": "2026-10-18T19:28:45",
-    "callsign": "KF8BWD",
-    "band": "40M",
-    "mode": "PHONE",
-    "reference": "US-1957",
-    "park": "Headlands Beach State Park",
-    "location": "US-OH"
    }
   ]
  },
