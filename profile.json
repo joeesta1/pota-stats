@@ -291,6 +291,15 @@
     "location": "US-MN"
    },
    {
+    "date": "2026-10-20T17:22:32",
+    "callsign": "W2S",
+    "band": "20M",
+    "mode": "CW",
+    "reference": "US-6305",
+    "park": "Guana River Wildlife Management Area",
+    "location": "US-FL"
+   },
+   {
     "date": "2026-10-19T22:22:00",
     "callsign": "W3JPH",
     "band": "40M",
@@ -313,8 +322,8 @@
     "callsign": "N8JMS",
     "band": "40M",
     "mode": "CW",
-    "reference": "US-1968",
-    "park": "Lake Hope State Park",
+    "reference": "US-5455",
+    "park": "Zaleski State Forest",
     "location": "US-OH"
    },
    {
@@ -322,8 +331,8 @@
     "callsign": "N8JMS",
     "band": "40M",
     "mode": "CW",
-    "reference": "US-5455",
-    "park": "Zaleski State Forest",
+    "reference": "US-1968",
+    "park": "Lake Hope State Park",
     "location": "US-OH"
    },
    {
@@ -400,7 +409,7 @@
    },
    {
     "date": "2026-10-18T17:35:00",
-    "callsign": "KE9JQ",
+    "callsign": "KE9JS",
     "band": "20M",
     "mode": "PHONE",
     "reference": "US-4112",
@@ -418,7 +427,7 @@
    },
    {
     "date": "2026-10-18T17:35:00",
-    "callsign": "KE9JS",
+    "callsign": "KE9JQ",
     "band": "20M",
     "mode": "PHONE",
     "reference": "US-4112",
@@ -496,15 +505,6 @@
     "reference": "GB-0022",
     "park": "Langstone Harbour SSSI & Conservation Reserve",
     "location": "GB-ENG"
-   },
-   {
-    "date": "2026-10-18T13:43:33",
-    "callsign": "KG1A",
-    "band": "20M",
-    "mode": "CW",
-    "reference": "US-4619",
-    "park": "Deep Creek State Forest",
-    "location": "US-FL"
    }
   ]
  },
