@@ -1,4 +1,5 @@
 // W4WJE live POTA status - server-rendered, no JavaScript in the page (works inside QRZ bio)
+// Bindings: KV namespace as LIVE (optional; without it the worker runs stateless). Cron: * * * * *
 const API = "https://api.pota.app";
 const POTA = "https://pota.app/#/park/";
 const TTL = 60; // seconds
@@ -11,6 +12,13 @@ const ago = d => { if (!d) return ""; const m = Math.max(0, Math.round((Date.now
 const mhz = k => { const n = parseFloat(k); if (!n) return esc(k); return n >= 1000 ? (n / 1000).toFixed(3) : n.toFixed(1); };
 const band = k => { const f = parseFloat(k) / 1000; const B = [[1.8,2,"160m"],[3.5,4,"80m"],[5.3,5.5,"60m"],[7,7.3,"40m"],[10.1,10.15,"30m"],[14,14.35,"20m"],[18.068,18.168,"17m"],[21,21.45,"15m"],[24.89,24.99,"12m"],[28,29.7,"10m"],[50,54,"6m"],[144,148,"2m"]]; for (const b of B) if (f >= b[0] && f <= b[1]) return b[2]; return ""; };
 const isRbn = s => /rbn|skimmer|-#/i.test((s.source || "") + " " + (s.spotter || "") + " " + (s.comments || ""));
+
+// Full park name: the spot list has it ("Crawfords State Forest"); /park/ splits it into name + parktypeDesc.
+const fullName = (s, p) => {
+  if (s && s.name) return s.name;
+  if (p && p.name) { const t = p.parktypeDesc || p.parkTypeDesc || ""; return t && !p.name.toLowerCase().includes(t.toLowerCase()) ? p.name + " " + t : p.name; }
+  return (s && s.parkName) || "";
+};
 
 async function j(path, ttl = TTL) {
   const r = await fetch(API + path, { cf: { cacheTtl: ttl, cacheEverything: true }, headers: { "User-Agent": "W4WJE-live-status" } });
@@ -75,6 +83,10 @@ a{color:inherit}
 .stats .n{font-size:26px;font-weight:800;color:var(--orange);line-height:1}
 .stats .l{font-size:13px;color:var(--muted)}
 .msg{color:var(--muted);margin-top:10px}
+.qrt .badge{color:#C9D3E2;background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.25)}
+.qrt .badge i{background:#7D8AA0}
+.qrt .freq .f{color:var(--muted)}
+.qrt .ref{background:#4A5A78}
 @media (max-width:560px){.park{grid-template-columns:1fr}.freq,.stats{text-align:left}.sp{grid-template-columns:46px 104px 1fr}.sp .c{display:none}}
 `;
 
@@ -97,7 +109,7 @@ function page(cls, status, inner, call, solo) {
 <span class="upd">pota.app · checked ${hhmm(new Date())}z</span></div>${inner}</div></div></body></html>`;
 }
 
-async function render(call, solo) {
+async function renderStateless(call, solo) {
   let spots;
   try { spots = await j("/spot/activator", 30); }
   catch (e) { return page("", "POTA STATUS", '<div class="msg">Couldn’t reach pota.app right now. Retrying shortly.</div>', call, solo); }
@@ -133,7 +145,7 @@ async function render(call, solo) {
       rbn.slice(0, 25).map(g => row(g.h, g.n)).join("");
     const plural = (n, w) => n + " " + w + (n === 1 ? "" : "s");
     const summary = `<div class="sum"><b>${plural(hunters.length, "hunter spot")}</b> · ${selfs.length ? `<b class="selfc">${plural(selfs.length, "self-spot")}</b> · ` : ""}<b class="rbn">${rbnAll.length} RBN</b>${rbnAll.length ? " from " + plural(skimmers, "skimmer") : ""}${bands.length ? " · heard on " + esc(bands.join(", ")) : ""}</div>`;
-    const name = (p && p.name) || s.name || s.parkName || "";
+    const name = fullName(s, p);
     const loc = (p && p.locationDesc) || s.locationDesc || "";
     const inner = `<div class="park"><div><div class="pname"><a class="ref" href="${POTA}${esc(s.reference)}" target="_blank" rel="noopener">${esc(s.reference)}</a>${esc(name)}</div>
 <div class="loc">${esc(loc)}${s.grid6 || s.grid4 ? " · " + esc(s.grid6 || s.grid4) : ""}</div></div>
@@ -159,18 +171,168 @@ ${summary}
   return page("recent", "NOT ON THE AIR", inner, call, solo);
 }
 
+// ---------------------------------------------------------------------------
+// KV-backed activation memory (binding: LIVE). A cron trigger polls every minute
+// so activations are captured even when nobody is viewing the page.
+//   ACTIVE  - spotted in the last 30 min and your newest self-spot isn't "QRT"
+//   QRT     - your own self-spot says QRT (others' QRT comments are ignored), or
+//             no spots for 30 min. Shown for 2 h with the frozen spot list.
+//   ENDED   - after the 2 h hold: "NOT ON THE AIR" + last activation's spots,
+//             kept until the next activation starts.
+// A new activation = a spot at a different park, or 12 h+ after the last spot.
+// ---------------------------------------------------------------------------
+const IDLE = 30 * 60 * 1000;
+const HOLD = 2 * 3600 * 1000;
+const GAP = 12 * 3600 * 1000;
+const MAXHIST = 400;
+const KEY = call => "act:" + call;
+const isQrtText = h => /\bQRT\b/i.test(h.comments || "");
+const sid = h => h.spotId != null ? String(h.spotId) : [h.spotTime, h.spotter, h.frequency].join("|");
+const newest = a => a.slice().sort((x, y) => (utc(y.spotTime) || 0) - (utc(x.spotTime) || 0));
+const slim = h => ({ spotId: h.spotId, spotTime: h.spotTime, spotter: h.spotter, frequency: h.frequency, mode: h.mode, source: h.source, comments: h.comments });
+
+async function poll(env, call) {
+  const prev = await env.LIVE.get(KEY(call), "json");
+  const spots = await j("/spot/activator", 30);
+  const mine = newest((spots || []).filter(s => base(s.activator) === call));
+  if (!mine.length) return { act: prev, ok: true };
+
+  const s = mine[0];
+  const sT = utc(s.spotTime);
+  let act = prev ? JSON.parse(JSON.stringify(prev)) : null;
+  if (!act || act.ref !== s.reference || (sT && act.last && sT - utc(act.last) > GAP)) {
+    act = { activator: s.activator, ref: s.reference, hist: [] };
+  }
+  const [p, c] = await Promise.all([
+    act.loc ? null : j("/park/" + encodeURIComponent(s.reference), 86400).catch(() => ({})),
+    j("/spot/comments/" + encodeURIComponent(s.activator) + "/" + encodeURIComponent(s.reference), 30).catch(() => [])
+  ]);
+  if (p) { act.loc = p.locationDesc || s.locationDesc || ""; act.pname = fullName(null, p); }
+  act.name = s.name || act.pname || act.name || "";
+  act.activator = s.activator;
+  act.grid = s.grid6 || s.grid4 || act.grid || "";
+  act.freq = s.frequency; act.mode = s.mode; act.spotTime = s.spotTime;
+
+  const map = new Map(act.hist.map(h => [sid(h), h]));
+  for (const h of (Array.isArray(c) ? c : []).concat(mine)) {
+    if (h.reference && h.reference !== act.ref) continue;
+    map.set(sid(h), slim(h));
+  }
+  let hist = newest([...map.values()]);
+  const top = hist.length ? utc(hist[0].spotTime) : null;
+  hist = hist.filter(h => { const t = utc(h.spotTime); return t && top - t < GAP; }).slice(0, MAXHIST);
+  act.hist = hist;
+  act.last = hist.length ? hist[0].spotTime : s.spotTime;
+  act.start = hist.length ? hist[hist.length - 1].spotTime : s.spotTime;
+
+  if (JSON.stringify(act) !== JSON.stringify(prev)) await env.LIVE.put(KEY(call), JSON.stringify(act));
+  return { act, ok: true };
+}
+
+function decide(act, now) {
+  const me = base(act.activator);
+  for (const h of act.hist) {
+    if (!isRbn(h) && base(h.spotter) === me) {
+      if (isQrtText(h)) return { state: "qrt", at: utc(h.spotTime), self: true };
+      break; // newest self-spot without QRT = still (or back) on the air
+    }
+  }
+  const lastT = utc(act.last);
+  if (!lastT || now - lastT > IDLE) return { state: "qrt", at: new Date(+lastT + IDLE), self: false, lastT };
+  return { state: "active" };
+}
+
+function spotBlock(act) {
+  const me = base(act.activator);
+  const hist = act.hist;
+  const isSelf = h => !isRbn(h) && base(h.spotter) === me;
+  const selfs = hist.filter(isSelf);
+  const hunters = hist.filter(h => !isRbn(h) && !isSelf(h));
+  const rbnAll = hist.filter(isRbn);
+  const rbnMap = new Map();
+  for (const h of rbnAll) {
+    const k = String(h.spotter || "").toUpperCase() + "|" + Math.round(parseFloat(h.frequency) || 0);
+    const g = rbnMap.get(k);
+    if (g) g.n++; else rbnMap.set(k, { h, n: 1 });
+  }
+  const rbn = [...rbnMap.values()];
+  const skimmers = new Set(rbnAll.map(h => String(h.spotter || "").toUpperCase())).size;
+  const bands = [...new Set(hist.map(h => band(h.frequency)).filter(Boolean))];
+  const row = (h, n, self) => `<div class="sp${self ? " self" : ""}"><div class="t">${hhmm(utc(h.spotTime))}z</div><div class="fq">${mhz(h.frequency)}<span class="mode">${esc(h.mode)}</span></div><div class="by${isRbn(h) ? " rbn" : ""}" title="${esc(h.spotter)}">${self ? '<span class="tag">SELF</span>' : ""}${esc(h.spotter)}${n > 1 ? ` <span class="x">×${n}</span>` : ""}</div><div class="c" title="${esc(h.comments)}">${esc(h.comments)}</div></div>`;
+  const rows = (selfs.length ? row(selfs[0], selfs.length, true) : "") +
+    hunters.slice(0, 40).map(h => row(h, 1)).join("") +
+    (hunters.length && rbn.length ? '<div class="sub">RBN skimmers</div>' : "") +
+    rbn.slice(0, 40).map(g => row(g.h, g.n)).join("");
+  const plural = (n, w) => n + " " + w + (n === 1 ? "" : "s");
+  const summary = `<div class="sum"><b>${plural(hunters.length, "hunter spot")}</b> · ${selfs.length ? `<b class="selfc">${plural(selfs.length, "self-spot")}</b> · ` : ""}<b class="rbn">${rbnAll.length} RBN</b>${rbnAll.length ? " from " + plural(skimmers, "skimmer") : ""}${bands.length ? " · heard on " + esc(bands.join(", ")) : ""}</div>`;
+  return { summary, rows };
+}
+
+const parkHead = act => `<div><div class="pname"><a class="ref" href="${POTA}${esc(act.ref)}" target="_blank" rel="noopener">${esc(act.ref)}</a>${esc(act.name || "")}</div>
+<div class="loc">${esc(act.loc || "")}${act.grid ? " · " + esc(act.grid) : ""}</div></div>`;
+
+const niceDate = d => { try { return d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" }); } catch (e) { return d.toISOString().slice(0, 10); } };
+
+async function renderKV(call, solo, env) {
+  let act = null, err = false;
+  try { act = (await poll(env, call)).act; }
+  catch (e) { err = true; try { act = await env.LIVE.get(KEY(call), "json"); } catch (e2) {} }
+  if (!act || !act.hist || !act.hist.length) return err
+    ? page("", "POTA STATUS", '<div class="msg">Couldn’t reach pota.app right now. Retrying shortly.</div>', call, solo)
+    : renderStateless(call, solo);
+
+  const now = Date.now();
+  const d = decide(act, now);
+  const { summary, rows } = spotBlock(act);
+  const spotsHtml = `${summary}<div class="spots">${rows || '<div class="msg">No spot history yet.</div>'}</div>`;
+  const legend = '<span style="color:var(--muted);font-weight:400;text-transform:none">· <span class="rbn">orange</span> = RBN skimmer</span>';
+
+  if (d.state === "active" || now - d.at < HOLD) {
+    const qrt = d.state === "qrt";
+    const status = !qrt ? "ACTIVE ON THE AIR" : d.self ? "QRT · " + hhmm(d.at) + "z" : "QRT · last spot " + hhmm(d.lastT) + "z";
+    const inner = `<div class="park">${parkHead(act)}
+<div class="freq"><div class="f">${mhz(act.freq)} <span style="font-size:15px;color:var(--muted)">MHz</span></div>
+<div class="m">${esc(band(act.freq))}<span class="mode">${esc(act.mode)}</span> · ${qrt ? "last spotted" : "spotted"} ${ago(utc(act.last))}</div></div></div>
+<div class="sp-head">Spots this activation ${legend}</div>${spotsHtml}`;
+    return page(qrt ? "qrt" : "live", status, inner, call, solo);
+  }
+
+  // Ended: keep showing the last activation until the next one starts.
+  const start = utc(act.start), last = utc(act.last);
+  let prof = {};
+  try { prof = await j("/profile/" + encodeURIComponent(call), 1800); } catch (e) {}
+  const a = (((prof && prof.recent_activity) || {}).activations || [])[0];
+  const aDate = a ? String(a.date || "").slice(0, 10) : "";
+  // A newer activation on pota.app that KV never saw (e.g. never spotted): show the profile view instead.
+  if (a && aDate > last.toISOString().slice(0, 10) && a.reference !== act.ref) return renderStateless(call, solo);
+  const match = a && a.reference === act.ref && aDate >= start.toISOString().slice(0, 10) && aDate <= last.toISOString().slice(0, 10);
+  const stats = match
+    ? `<div class="stats"><div class="n">${esc(a.total)}</div><div class="l">QSOs · CW ${esc(a.cw || 0)} · Data ${esc(a.data || 0)} · Phone ${esc(a.phone || 0)}</div></div>`
+    : `<div class="stats"><div class="l">QSO count appears<br>after log upload</div></div>`;
+  const inner = `<div class="sp-head" style="margin-top:12px">Last activation · ${esc(niceDate(start))} · ${hhmm(start)}–${hhmm(last)}z</div>
+<div class="park" style="margin-top:2px">${parkHead(act)}${stats}</div>
+<div class="sp-head">Spots from that activation ${legend}</div>${spotsHtml}
+<div class="msg" style="font-size:13px">This box switches to live spots automatically when ${esc(call)} is spotted on pota.app.</div>`;
+  return page("recent", "NOT ON THE AIR", inner, call, solo);
+}
+
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
-    const call = (url.searchParams.get("call") || "W4WJE").toUpperCase().replace(/[^A-Z0-9\/]/g, "").slice(0, 15) || "W4WJE";
+    const home = (env.CALL || "W4WJE").toUpperCase();
+    const call = (url.searchParams.get("call") || home).toUpperCase().replace(/[^A-Z0-9\/]/g, "").slice(0, 15) || home;
     const solo = url.searchParams.has("solo");
     const cacheKey = new Request(url.origin + "/?call=" + call + (solo ? "&solo" : ""));
     const cache = caches.default;
     let res = await cache.match(cacheKey);
     if (res) return res;
-    const html = await render(call, solo);
+    // KV memory only for the home callsign, so other ?call= lookups can't use up KV writes.
+    const html = env.LIVE && call === home ? await renderKV(call, solo, env) : await renderStateless(call, solo);
     res = new Response(html, { headers: { "content-type": "text/html; charset=utf-8", "cache-control": "public, max-age=" + TTL } });
     ctx.waitUntil(cache.put(cacheKey, res.clone()));
     return res;
+  },
+  async scheduled(event, env, ctx) {
+    if (env.LIVE) ctx.waitUntil(poll(env, (env.CALL || "W4WJE").toUpperCase()).catch(() => {}));
   }
 };
