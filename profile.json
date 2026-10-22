@@ -282,6 +282,15 @@
   ],
   "hunter_qsos": [
    {
+    "date": "2026-10-21T23:26:08",
+    "callsign": "W7BTR",
+    "band": "20M",
+    "mode": "CW",
+    "reference": "US-10512",
+    "park": "Verde River Greenway State Natural Area",
+    "location": "US-AZ"
+   },
+   {
     "date": "2026-10-21T22:53:43",
     "callsign": "AK0A",
     "band": "40M",
@@ -390,6 +399,42 @@
     "location": "US-FL"
    },
    {
+    "date": "2026-10-21T13:13:00",
+    "callsign": "K2JVB",
+    "band": "30M",
+    "mode": "CW",
+    "reference": "US-2072",
+    "park": "Hempstead Lake State Park",
+    "location": "US-NY"
+   },
+   {
+    "date": "2026-10-21T13:13:00",
+    "callsign": "K2JVB",
+    "band": "30M",
+    "mode": "CW",
+    "reference": "US-2072",
+    "park": "Hempstead Lake State Park",
+    "location": "US-NY"
+   },
+   {
+    "date": "2026-10-21T12:35:00",
+    "callsign": "K2JVB",
+    "band": "40M",
+    "mode": "CW",
+    "reference": "US-2072",
+    "park": "Hempstead Lake State Park",
+    "location": "US-NY"
+   },
+   {
+    "date": "2026-10-21T12:35:00",
+    "callsign": "K2JVB",
+    "band": "40M",
+    "mode": "CW",
+    "reference": "US-2072",
+    "park": "Hempstead Lake State Park",
+    "location": "US-NY"
+   },
+   {
     "date": "2026-10-20T23:33:54",
     "callsign": "WB0RLJ",
     "band": "20M",
@@ -460,51 +505,6 @@
     "reference": "US-5712",
     "park": "James A. Reed Memorial Wildlife Area",
     "location": "US-MO"
-   },
-   {
-    "date": "2026-10-18T20:06:12",
-    "callsign": "KG4BIG",
-    "band": "30M",
-    "mode": "CW",
-    "reference": "US-10173",
-    "park": "Kentucky Horse Park",
-    "location": "US-KY"
-   },
-   {
-    "date": "2026-10-18T19:33:58",
-    "callsign": "WB0RLJ",
-    "band": "20M",
-    "mode": "CW",
-    "reference": "US-4011",
-    "park": "Chalco Hills State Recreation Area",
-    "location": "US-NE"
-   },
-   {
-    "date": "2026-10-18T19:33:39",
-    "callsign": "KE8NJW",
-    "band": "40M",
-    "mode": "CW",
-    "reference": "US-1946",
-    "park": "Delaware State Park",
-    "location": "US-OH"
-   },
-   {
-    "date": "2026-10-18T19:31:00",
-    "callsign": "W1RFY",
-    "band": "40M",
-    "mode": "CW",
-    "reference": "US-11499",
-    "park": "Bolton Flats Wildlife Management Area",
-    "location": "US-MA"
-   },
-   {
-    "date": "2026-10-18T19:29:23",
-    "callsign": "KB1MCT",
-    "band": "40M",
-    "mode": "PHONE",
-    "reference": "US-6866",
-    "park": "Nehantic State Forest",
-    "location": "US-CT"
    }
   ]
  },
