@@ -282,6 +282,15 @@
   ],
   "hunter_qsos": [
    {
+    "date": "2026-10-22T17:02:08",
+    "callsign": "KJ5GCH",
+    "band": "15M",
+    "mode": "PHONE",
+    "reference": "US-3004",
+    "park": "Dinosaur Valley State Park",
+    "location": "US-TX"
+   },
+   {
     "date": "2026-10-22T12:44:37",
     "callsign": "KB1WCK",
     "band": "40M",
@@ -349,8 +358,8 @@
     "callsign": "KG4EXY",
     "band": "30M",
     "mode": "CW",
-    "reference": "US-9935",
-    "park": "Virginia Bird & Wildlife State Trail",
+    "reference": "US-0712",
+    "park": "Manassas National Battlefield",
     "location": "US-VA"
    },
    {
@@ -358,15 +367,6 @@
     "callsign": "KG4EXY",
     "band": "30M",
     "mode": "CW",
-    "reference": "US-0712",
-    "park": "Manassas National Battlefield",
-    "location": "US-VA"
-   },
-   {
-    "date": "2026-10-21T17:04:01",
-    "callsign": "KG4EXY",
-    "band": "15M",
-    "mode": "CW",
     "reference": "US-9935",
     "park": "Virginia Bird & Wildlife State Trail",
     "location": "US-VA"
@@ -381,12 +381,12 @@
     "location": "US-VA"
    },
    {
-    "date": "2026-10-21T16:45:52",
+    "date": "2026-10-21T17:04:01",
     "callsign": "KG4EXY",
-    "band": "17M",
+    "band": "15M",
     "mode": "CW",
-    "reference": "US-0712",
-    "park": "Manassas National Battlefield",
+    "reference": "US-9935",
+    "park": "Virginia Bird & Wildlife State Trail",
     "location": "US-VA"
    },
    {
@@ -396,6 +396,15 @@
     "mode": "CW",
     "reference": "US-9935",
     "park": "Virginia Bird & Wildlife State Trail",
+    "location": "US-VA"
+   },
+   {
+    "date": "2026-10-21T16:45:52",
+    "callsign": "KG4EXY",
+    "band": "17M",
+    "mode": "CW",
+    "reference": "US-0712",
+    "park": "Manassas National Battlefield",
     "location": "US-VA"
    },
    {
@@ -496,15 +505,6 @@
     "reference": "US-4011",
     "park": "Chalco Hills State Recreation Area",
     "location": "US-NE"
-   },
-   {
-    "date": "2026-10-20T21:11:00",
-    "callsign": "W0SA",
-    "band": "20M",
-    "mode": "CW",
-    "reference": "US-9381",
-    "park": "Douglas State Trail",
-    "location": "US-MN"
    }
   ]
  },
