@@ -282,6 +282,15 @@
   ],
   "hunter_qsos": [
    {
+    "date": "2026-10-22T12:44:37",
+    "callsign": "KB1WCK",
+    "band": "40M",
+    "mode": "CW",
+    "reference": "US-11613",
+    "park": "Black Brook Wildlife Management Area",
+    "location": "US-MA"
+   },
+   {
     "date": "2026-10-21T23:26:08",
     "callsign": "W7BTR",
     "band": "20M",
@@ -300,6 +309,15 @@
     "location": "US-KS"
    },
    {
+    "date": "2026-10-21T22:52:00",
+    "callsign": "KC2IRV",
+    "band": "40M",
+    "mode": "CW",
+    "reference": "US-8827",
+    "park": "PA 129 State Game Land",
+    "location": "US-PA"
+   },
+   {
     "date": "2026-10-21T22:47:28",
     "callsign": "WB0RLJ",
     "band": "17M",
@@ -313,8 +331,8 @@
     "callsign": "KG4EXY",
     "band": "40M",
     "mode": "CW",
-    "reference": "US-0712",
-    "park": "Manassas National Battlefield",
+    "reference": "US-9935",
+    "park": "Virginia Bird & Wildlife State Trail",
     "location": "US-VA"
    },
    {
@@ -322,15 +340,6 @@
     "callsign": "KG4EXY",
     "band": "40M",
     "mode": "CW",
-    "reference": "US-9935",
-    "park": "Virginia Bird & Wildlife State Trail",
-    "location": "US-VA"
-   },
-   {
-    "date": "2026-10-21T17:17:09",
-    "callsign": "KG4EXY",
-    "band": "30M",
-    "mode": "CW",
     "reference": "US-0712",
     "park": "Manassas National Battlefield",
     "location": "US-VA"
@@ -345,9 +354,9 @@
     "location": "US-VA"
    },
    {
-    "date": "2026-10-21T17:04:01",
+    "date": "2026-10-21T17:17:09",
     "callsign": "KG4EXY",
-    "band": "15M",
+    "band": "30M",
     "mode": "CW",
     "reference": "US-0712",
     "park": "Manassas National Battlefield",
@@ -360,6 +369,15 @@
     "mode": "CW",
     "reference": "US-9935",
     "park": "Virginia Bird & Wildlife State Trail",
+    "location": "US-VA"
+   },
+   {
+    "date": "2026-10-21T17:04:01",
+    "callsign": "KG4EXY",
+    "band": "15M",
+    "mode": "CW",
+    "reference": "US-0712",
+    "park": "Manassas National Battlefield",
     "location": "US-VA"
    },
    {
@@ -385,8 +403,8 @@
     "callsign": "KG4EXY",
     "band": "20M",
     "mode": "CW",
-    "reference": "US-9935",
-    "park": "Virginia Bird & Wildlife State Trail",
+    "reference": "US-0712",
+    "park": "Manassas National Battlefield",
     "location": "US-VA"
    },
    {
@@ -394,8 +412,8 @@
     "callsign": "KG4EXY",
     "band": "20M",
     "mode": "CW",
-    "reference": "US-0712",
-    "park": "Manassas National Battlefield",
+    "reference": "US-9935",
+    "park": "Virginia Bird & Wildlife State Trail",
     "location": "US-VA"
    },
    {
@@ -424,6 +442,24 @@
     "reference": "US-2072",
     "park": "Hempstead Lake State Park",
     "location": "US-NY"
+   },
+   {
+    "date": "2026-10-21T12:51:40",
+    "callsign": "N8BB",
+    "band": "40M",
+    "mode": "CW",
+    "reference": "US-13184",
+    "park": "Iron Belle State Trail",
+    "location": "US-MI"
+   },
+   {
+    "date": "2026-10-21T12:51:40",
+    "callsign": "N8BB",
+    "band": "40M",
+    "mode": "CW",
+    "reference": "US-4239",
+    "park": "North Country Trail National Scenic Trail",
+    "location": "US-MI"
    },
    {
     "date": "2026-10-21T12:35:00",
@@ -469,42 +505,6 @@
     "reference": "US-6305",
     "park": "Guana River Wildlife Management Area",
     "location": "US-FL"
-   },
-   {
-    "date": "2026-10-19T22:22:00",
-    "callsign": "W3JPH",
-    "band": "40M",
-    "mode": "CW",
-    "reference": "US-4356",
-    "park": "Boyd Big Tree State Preserve",
-    "location": "US-PA"
-   },
-   {
-    "date": "2026-10-19T12:42:05",
-    "callsign": "N2ESE",
-    "band": "40M",
-    "mode": "CW",
-    "reference": "US-1620",
-    "park": "Hopatcong State Park",
-    "location": "US-NJ"
-   },
-   {
-    "date": "2026-10-18T23:07:32",
-    "callsign": "N8JMS",
-    "band": "40M",
-    "mode": "CW",
-    "reference": "US-1968",
-    "park": "Lake Hope State Park",
-    "location": "US-OH"
-   },
-   {
-    "date": "2026-10-18T23:07:32",
-    "callsign": "N8JMS",
-    "band": "40M",
-    "mode": "CW",
-    "reference": "US-5455",
-    "park": "Zaleski State Forest",
-    "location": "US-OH"
    }
   ]
  },
