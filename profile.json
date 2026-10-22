@@ -300,6 +300,15 @@
     "location": "US-KS"
    },
    {
+    "date": "2026-10-21T22:47:28",
+    "callsign": "WB0RLJ",
+    "band": "17M",
+    "mode": "CW",
+    "reference": "US-4011",
+    "park": "Chalco Hills State Recreation Area",
+    "location": "US-NE"
+   },
+   {
     "date": "2026-10-21T17:45:24",
     "callsign": "KG4EXY",
     "band": "40M",
@@ -496,15 +505,6 @@
     "reference": "US-5455",
     "park": "Zaleski State Forest",
     "location": "US-OH"
-   },
-   {
-    "date": "2026-10-18T20:08:44",
-    "callsign": "N1CCC",
-    "band": "15M",
-    "mode": "CW",
-    "reference": "US-5712",
-    "park": "James A. Reed Memorial Wildlife Area",
-    "location": "US-MO"
    }
   ]
  },
