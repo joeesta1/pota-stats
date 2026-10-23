@@ -282,6 +282,24 @@
   ],
   "hunter_qsos": [
    {
+    "date": "2026-10-23T18:15:41",
+    "callsign": "WA2NYY",
+    "band": "20M",
+    "mode": "CW",
+    "reference": "US-2084",
+    "park": "James Baird State Park",
+    "location": "US-NY"
+   },
+   {
+    "date": "2026-10-23T15:03:00",
+    "callsign": "W1RFY",
+    "band": "40M",
+    "mode": "CW",
+    "reference": "US-2452",
+    "park": "Pearl Hill State Park",
+    "location": "US-MA"
+   },
+   {
     "date": "2026-10-22T17:02:08",
     "callsign": "KJ5GCH",
     "band": "15M",
@@ -349,8 +367,8 @@
     "callsign": "KG4EXY",
     "band": "40M",
     "mode": "CW",
-    "reference": "US-9935",
-    "park": "Virginia Bird & Wildlife State Trail",
+    "reference": "US-0712",
+    "park": "Manassas National Battlefield",
     "location": "US-VA"
    },
    {
@@ -358,17 +376,8 @@
     "callsign": "KG4EXY",
     "band": "40M",
     "mode": "CW",
-    "reference": "US-0712",
-    "park": "Manassas National Battlefield",
-    "location": "US-VA"
-   },
-   {
-    "date": "2026-10-21T17:17:09",
-    "callsign": "KG4EXY",
-    "band": "30M",
-    "mode": "CW",
-    "reference": "US-0712",
-    "park": "Manassas National Battlefield",
+    "reference": "US-9935",
+    "park": "Virginia Bird & Wildlife State Trail",
     "location": "US-VA"
    },
    {
@@ -381,12 +390,12 @@
     "location": "US-VA"
    },
    {
-    "date": "2026-10-21T17:04:01",
+    "date": "2026-10-21T17:17:09",
     "callsign": "KG4EXY",
-    "band": "15M",
+    "band": "30M",
     "mode": "CW",
-    "reference": "US-9935",
-    "park": "Virginia Bird & Wildlife State Trail",
+    "reference": "US-0712",
+    "park": "Manassas National Battlefield",
     "location": "US-VA"
    },
    {
@@ -399,9 +408,9 @@
     "location": "US-VA"
    },
    {
-    "date": "2026-10-21T16:45:52",
+    "date": "2026-10-21T17:04:01",
     "callsign": "KG4EXY",
-    "band": "17M",
+    "band": "15M",
     "mode": "CW",
     "reference": "US-9935",
     "park": "Virginia Bird & Wildlife State Trail",
@@ -417,9 +426,9 @@
     "location": "US-VA"
    },
    {
-    "date": "2026-10-21T15:51:59",
+    "date": "2026-10-21T16:45:52",
     "callsign": "KG4EXY",
-    "band": "20M",
+    "band": "17M",
     "mode": "CW",
     "reference": "US-9935",
     "park": "Virginia Bird & Wildlife State Trail",
@@ -432,6 +441,15 @@
     "mode": "CW",
     "reference": "US-0712",
     "park": "Manassas National Battlefield",
+    "location": "US-VA"
+   },
+   {
+    "date": "2026-10-21T15:51:59",
+    "callsign": "KG4EXY",
+    "band": "20M",
+    "mode": "CW",
+    "reference": "US-9935",
+    "park": "Virginia Bird & Wildlife State Trail",
     "location": "US-VA"
    },
    {
@@ -487,24 +505,6 @@
     "reference": "US-6305",
     "park": "Guana River Wildlife Management Area",
     "location": "US-FL"
-   },
-   {
-    "date": "2026-10-21T12:35:00",
-    "callsign": "K2JVB",
-    "band": "40M",
-    "mode": "CW",
-    "reference": "US-2072",
-    "park": "Hempstead Lake State Park",
-    "location": "US-NY"
-   },
-   {
-    "date": "2026-10-21T12:35:00",
-    "callsign": "K2JVB",
-    "band": "40M",
-    "mode": "CW",
-    "reference": "US-2072",
-    "park": "Hempstead Lake State Park",
-    "location": "US-NY"
    }
   ]
  },
