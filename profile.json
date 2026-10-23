@@ -291,6 +291,15 @@
     "location": "US-TX"
    },
    {
+    "date": "2026-10-22T12:46:38",
+    "callsign": "KG1A",
+    "band": "40M",
+    "mode": "CW",
+    "reference": "US-6305",
+    "park": "Guana River Wildlife Management Area",
+    "location": "US-FL"
+   },
+   {
     "date": "2026-10-22T12:44:37",
     "callsign": "KB1WCK",
     "band": "40M",
@@ -358,8 +367,8 @@
     "callsign": "KG4EXY",
     "band": "30M",
     "mode": "CW",
-    "reference": "US-0712",
-    "park": "Manassas National Battlefield",
+    "reference": "US-9935",
+    "park": "Virginia Bird & Wildlife State Trail",
     "location": "US-VA"
    },
    {
@@ -367,8 +376,8 @@
     "callsign": "KG4EXY",
     "band": "30M",
     "mode": "CW",
-    "reference": "US-9935",
-    "park": "Virginia Bird & Wildlife State Trail",
+    "reference": "US-0712",
+    "park": "Manassas National Battlefield",
     "location": "US-VA"
    },
    {
@@ -496,15 +505,6 @@
     "reference": "US-2072",
     "park": "Hempstead Lake State Park",
     "location": "US-NY"
-   },
-   {
-    "date": "2026-10-20T23:33:54",
-    "callsign": "WB0RLJ",
-    "band": "20M",
-    "mode": "CW",
-    "reference": "US-4011",
-    "park": "Chalco Hills State Recreation Area",
-    "location": "US-NE"
    }
   ]
  },
