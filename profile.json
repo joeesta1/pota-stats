@@ -367,8 +367,8 @@
     "callsign": "KG4EXY",
     "band": "30M",
     "mode": "CW",
-    "reference": "US-9935",
-    "park": "Virginia Bird & Wildlife State Trail",
+    "reference": "US-0712",
+    "park": "Manassas National Battlefield",
     "location": "US-VA"
    },
    {
@@ -376,17 +376,8 @@
     "callsign": "KG4EXY",
     "band": "30M",
     "mode": "CW",
-    "reference": "US-0712",
-    "park": "Manassas National Battlefield",
-    "location": "US-VA"
-   },
-   {
-    "date": "2026-10-21T17:04:01",
-    "callsign": "KG4EXY",
-    "band": "15M",
-    "mode": "CW",
-    "reference": "US-0712",
-    "park": "Manassas National Battlefield",
+    "reference": "US-9935",
+    "park": "Virginia Bird & Wildlife State Trail",
     "location": "US-VA"
    },
    {
@@ -396,6 +387,15 @@
     "mode": "CW",
     "reference": "US-9935",
     "park": "Virginia Bird & Wildlife State Trail",
+    "location": "US-VA"
+   },
+   {
+    "date": "2026-10-21T17:04:01",
+    "callsign": "KG4EXY",
+    "band": "15M",
+    "mode": "CW",
+    "reference": "US-0712",
+    "park": "Manassas National Battlefield",
     "location": "US-VA"
    },
    {
