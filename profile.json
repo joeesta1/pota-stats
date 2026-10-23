@@ -11,24 +11,54 @@
  "gravatar": "03907e063242210292b4fad74b2c595b",
  "stats": {
   "activator": {
-   "activations": 760,
+   "activations": 763,
    "parks": 148,
-   "qsos": 24622
+   "qsos": 24652
   },
   "attempts": {
-   "activations": 760,
+   "activations": 763,
    "parks": 148,
-   "qsos": 24622
+   "qsos": 24652
   },
   "hunter": {
    "parks": 2326,
    "qsos": 6313
   },
   "awards": 56,
-  "endorsements": 154
+  "endorsements": 155
  },
  "recent_activity": {
   "activations": [
+   {
+    "date": "2026-10-23",
+    "reference": "US-9899",
+    "park": "Fort Hunt National Historical Site",
+    "location": "US-VA",
+    "cw": 10,
+    "data": 0,
+    "phone": 0,
+    "total": 10
+   },
+   {
+    "date": "2026-10-23",
+    "reference": "US-0670",
+    "park": "George Washington Memorial Parkway",
+    "location": "US-VA",
+    "cw": 10,
+    "data": 0,
+    "phone": 0,
+    "total": 10
+   },
+   {
+    "date": "2026-10-23",
+    "reference": "US-9935",
+    "park": "Virginia Bird & Wildlife State Trail",
+    "location": "US-VA",
+    "cw": 10,
+    "data": 0,
+    "phone": 0,
+    "total": 10
+   },
    {
     "date": "2026-10-21",
     "reference": "US-0712",
@@ -161,8 +191,18 @@
    },
    {
     "date": "2026-10-08",
-    "reference": "US-0670",
-    "park": "George Washington Memorial Parkway",
+    "reference": "US-4564",
+    "park": "Potomac Heritage Trail National Scenic Trail",
+    "location": "US-VA",
+    "cw": 34,
+    "data": 0,
+    "phone": 0,
+    "total": 34
+   },
+   {
+    "date": "2026-10-08",
+    "reference": "US-9935",
+    "park": "Virginia Bird & Wildlife State Trail",
     "location": "US-VA",
     "cw": 34,
     "data": 0,
@@ -181,33 +221,13 @@
    },
    {
     "date": "2026-10-08",
-    "reference": "US-9935",
-    "park": "Virginia Bird & Wildlife State Trail",
+    "reference": "US-0670",
+    "park": "George Washington Memorial Parkway",
     "location": "US-VA",
     "cw": 34,
     "data": 0,
     "phone": 0,
     "total": 34
-   },
-   {
-    "date": "2026-10-08",
-    "reference": "US-4564",
-    "park": "Potomac Heritage Trail National Scenic Trail",
-    "location": "US-VA",
-    "cw": 34,
-    "data": 0,
-    "phone": 0,
-    "total": 34
-   },
-   {
-    "date": "2026-10-07",
-    "reference": "US-9935",
-    "park": "Virginia Bird & Wildlife State Trail",
-    "location": "US-VA",
-    "cw": 24,
-    "data": 0,
-    "phone": 0,
-    "total": 24
    },
    {
     "date": "2026-10-07",
@@ -241,8 +261,8 @@
    },
    {
     "date": "2026-10-07",
-    "reference": "US-4567",
-    "park": "Captain John Smith Chesapeake National Historic Trail",
+    "reference": "US-9935",
+    "park": "Virginia Bird & Wildlife State Trail",
     "location": "US-VA",
     "cw": 24,
     "data": 0,
@@ -258,26 +278,6 @@
     "data": 0,
     "phone": 0,
     "total": 24
-   },
-   {
-    "date": "2026-10-07",
-    "reference": "US-9898",
-    "park": "Mount Vernon National Historic Trail",
-    "location": "US-VA",
-    "cw": 24,
-    "data": 0,
-    "phone": 0,
-    "total": 24
-   },
-   {
-    "date": "2026-10-04",
-    "reference": "US-0712",
-    "park": "Manassas National Battlefield",
-    "location": "US-VA",
-    "cw": 17,
-    "data": 0,
-    "phone": 5,
-    "total": 22
    }
   ],
   "hunter_qsos": [
@@ -558,6 +558,7 @@
    "granted": "2024-01-04T18:35:11",
    "endorsements": [
     "20M",
+    "40M",
     "CW",
     "PHONE"
    ]
