@@ -282,6 +282,15 @@
   ],
   "hunter_qsos": [
    {
+    "date": "2026-10-23T21:48:00",
+    "callsign": "W7UUU",
+    "band": "20M",
+    "mode": "CW",
+    "reference": "US-13516",
+    "park": "Horseshoe -Kitsap- State Fishing Lake",
+    "location": "US-WA"
+   },
+   {
     "date": "2026-10-23T18:15:41",
     "callsign": "WA2NYY",
     "band": "20M",
@@ -385,8 +394,8 @@
     "callsign": "KG4EXY",
     "band": "30M",
     "mode": "CW",
-    "reference": "US-9935",
-    "park": "Virginia Bird & Wildlife State Trail",
+    "reference": "US-0712",
+    "park": "Manassas National Battlefield",
     "location": "US-VA"
    },
    {
@@ -394,8 +403,8 @@
     "callsign": "KG4EXY",
     "band": "30M",
     "mode": "CW",
-    "reference": "US-0712",
-    "park": "Manassas National Battlefield",
+    "reference": "US-9935",
+    "park": "Virginia Bird & Wildlife State Trail",
     "location": "US-VA"
    },
    {
@@ -421,8 +430,8 @@
     "callsign": "KG4EXY",
     "band": "17M",
     "mode": "CW",
-    "reference": "US-0712",
-    "park": "Manassas National Battlefield",
+    "reference": "US-9935",
+    "park": "Virginia Bird & Wildlife State Trail",
     "location": "US-VA"
    },
    {
@@ -430,15 +439,6 @@
     "callsign": "KG4EXY",
     "band": "17M",
     "mode": "CW",
-    "reference": "US-9935",
-    "park": "Virginia Bird & Wildlife State Trail",
-    "location": "US-VA"
-   },
-   {
-    "date": "2026-10-21T15:51:59",
-    "callsign": "KG4EXY",
-    "band": "20M",
-    "mode": "CW",
     "reference": "US-0712",
     "park": "Manassas National Battlefield",
     "location": "US-VA"
@@ -450,6 +450,15 @@
     "mode": "CW",
     "reference": "US-9935",
     "park": "Virginia Bird & Wildlife State Trail",
+    "location": "US-VA"
+   },
+   {
+    "date": "2026-10-21T15:51:59",
+    "callsign": "KG4EXY",
+    "band": "20M",
+    "mode": "CW",
+    "reference": "US-0712",
+    "park": "Manassas National Battlefield",
     "location": "US-VA"
    },
    {
@@ -496,15 +505,6 @@
     "reference": "US-4239",
     "park": "North Country Trail National Scenic Trail",
     "location": "US-MI"
-   },
-   {
-    "date": "2026-10-21T12:40:03",
-    "callsign": "W2S",
-    "band": "40M",
-    "mode": "CW",
-    "reference": "US-6305",
-    "park": "Guana River Wildlife Management Area",
-    "location": "US-FL"
    }
   ]
  },
