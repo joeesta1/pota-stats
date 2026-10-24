@@ -282,6 +282,15 @@
   ],
   "hunter_qsos": [
    {
+    "date": "2026-10-23T23:26:24",
+    "callsign": "KO6A",
+    "band": "20M",
+    "mode": "CW",
+    "reference": "US-0647",
+    "park": "Golden Gate National Recreation Area",
+    "location": "US-CA"
+   },
+   {
     "date": "2026-10-23T23:19:06",
     "callsign": "WB0RLJ",
     "band": "30M",
@@ -307,6 +316,15 @@
     "reference": "US-13516",
     "park": "Horseshoe -Kitsap- State Fishing Lake",
     "location": "US-WA"
+   },
+   {
+    "date": "2026-10-23T21:35:04",
+    "callsign": "W2DON",
+    "band": "20M",
+    "mode": "CW",
+    "reference": "US-10633",
+    "park": "Carnegie State Recreation Area",
+    "location": "US-CA"
    },
    {
     "date": "2026-10-23T18:15:41",
@@ -421,8 +439,8 @@
     "callsign": "KG4EXY",
     "band": "40M",
     "mode": "CW",
-    "reference": "US-0712",
-    "park": "Manassas National Battlefield",
+    "reference": "US-9935",
+    "park": "Virginia Bird & Wildlife State Trail",
     "location": "US-VA"
    },
    {
@@ -430,8 +448,8 @@
     "callsign": "KG4EXY",
     "band": "40M",
     "mode": "CW",
-    "reference": "US-9935",
-    "park": "Virginia Bird & Wildlife State Trail",
+    "reference": "US-0712",
+    "park": "Manassas National Battlefield",
     "location": "US-VA"
    },
    {
@@ -475,8 +493,8 @@
     "callsign": "KG4EXY",
     "band": "17M",
     "mode": "CW",
-    "reference": "US-9935",
-    "park": "Virginia Bird & Wildlife State Trail",
+    "reference": "US-0712",
+    "park": "Manassas National Battlefield",
     "location": "US-VA"
    },
    {
@@ -484,26 +502,8 @@
     "callsign": "KG4EXY",
     "band": "17M",
     "mode": "CW",
-    "reference": "US-0712",
-    "park": "Manassas National Battlefield",
-    "location": "US-VA"
-   },
-   {
-    "date": "2026-10-21T15:51:59",
-    "callsign": "KG4EXY",
-    "band": "20M",
-    "mode": "CW",
     "reference": "US-9935",
     "park": "Virginia Bird & Wildlife State Trail",
-    "location": "US-VA"
-   },
-   {
-    "date": "2026-10-21T15:51:59",
-    "callsign": "KG4EXY",
-    "band": "20M",
-    "mode": "CW",
-    "reference": "US-0712",
-    "park": "Manassas National Battlefield",
     "location": "US-VA"
    }
   ]
