@@ -95,7 +95,7 @@ a{color:inherit}
 .freq .m{font-size:14px;color:var(--muted);margin-top:4px}
 .mode{display:inline-block;font-size:12px;font-weight:700;border-radius:999px;padding:1px 8px;margin-left:6px;border:1px solid var(--edge);color:var(--ink)}
 .sp-head{margin:14px 0 4px;font-size:13px;font-weight:800;color:var(--cyan);letter-spacing:.04em;text-transform:uppercase}
-.spots{max-height:110px;overflow:auto}
+.spots{max-height:330px;overflow-y:auto}
 .sp{display:grid;grid-template-columns:52px 112px 116px 1fr;gap:10px;padding:5px 0;border-top:1px solid var(--line);font-size:13px;align-items:baseline}
 .sp .t{color:var(--muted);font-variant-numeric:tabular-nums}
 .sp .fq{font-weight:700;font-variant-numeric:tabular-nums}
