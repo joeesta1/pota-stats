@@ -4,30 +4,57 @@ on:
   schedule:
     - cron: "17 * * * *"   # every hour
   workflow_dispatch:        # lets you run it by hand from the Actions tab
+  push:
+    branches: [main]
+    paths-ignore:
+      - "worker/**"         # the Worker is deployed by Cloudflare Workers Builds
+      - "apps-script/**"
 
+# Builds the page and publishes it straight to GitHub Pages - nothing is committed back,
+# so the repo history no longer grows every hour.
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
 
 concurrency:
-  group: pota-stats
+  group: pages
   cancel-in-progress: false
 
 jobs:
-  update:
+  deploy:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v5
+
+      - name: Week number (for the park list cache)
+        id: week
+        run: echo "week=$(date -u +%G-%V)" >> "$GITHUB_OUTPUT"
+
+      # The 9.5 MB all-parks CSV lives in the Actions cache instead of the repo.
+      # build.py re-downloads it when it's more than 7 days old.
+      - name: Restore park list cache
+        uses: actions/cache@v4
+        with:
+          path: data
+          key: parks-${{ steps.week.outputs.week }}
+          restore-keys: parks-
+
       - name: Build page
         run: python3 build.py
-      - name: Save if changed
+
+      - name: Assemble site
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898733+github-actions[bot]@users.noreply.github.com"
-          git add index.html profile.json data
-          if git diff --cached --quiet; then
-            echo "No changes"
-          else
-            git commit -m "Update POTA stats"
-            git pull --rebase -X theirs origin main
-            git push
-          fi
+          mkdir -p _site
+          cp index.html live.html profile.json _site/
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
