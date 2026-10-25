@@ -282,6 +282,15 @@
   ],
   "hunter_qsos": [
    {
+    "date": "2026-10-24T20:28:31",
+    "callsign": "W0YEM",
+    "band": "20M",
+    "mode": "CW",
+    "reference": "US-4036",
+    "park": "Walnut Creek State Recreation Area",
+    "location": "US-NE"
+   },
+   {
     "date": "2026-10-23T23:26:24",
     "callsign": "KO6A",
     "band": "20M",
@@ -457,8 +466,8 @@
     "callsign": "KG4EXY",
     "band": "30M",
     "mode": "CW",
-    "reference": "US-9935",
-    "park": "Virginia Bird & Wildlife State Trail",
+    "reference": "US-0712",
+    "park": "Manassas National Battlefield",
     "location": "US-VA"
    },
    {
@@ -466,8 +475,8 @@
     "callsign": "KG4EXY",
     "band": "30M",
     "mode": "CW",
-    "reference": "US-0712",
-    "park": "Manassas National Battlefield",
+    "reference": "US-9935",
+    "park": "Virginia Bird & Wildlife State Trail",
     "location": "US-VA"
    },
    {
@@ -495,15 +504,6 @@
     "mode": "CW",
     "reference": "US-9935",
     "park": "Virginia Bird & Wildlife State Trail",
-    "location": "US-VA"
-   },
-   {
-    "date": "2026-10-21T16:45:52",
-    "callsign": "KG4EXY",
-    "band": "17M",
-    "mode": "CW",
-    "reference": "US-0712",
-    "park": "Manassas National Battlefield",
     "location": "US-VA"
    }
   ]
