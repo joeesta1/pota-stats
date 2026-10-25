@@ -11,14 +11,14 @@
  "gravatar": "03907e063242210292b4fad74b2c595b",
  "stats": {
   "activator": {
-   "activations": 763,
+   "activations": 764,
    "parks": 148,
-   "qsos": 24652
+   "qsos": 24740
   },
   "attempts": {
-   "activations": 763,
+   "activations": 764,
    "parks": 148,
-   "qsos": 24652
+   "qsos": 24740
   },
   "hunter": {
    "parks": 2332,
@@ -29,6 +29,16 @@
  },
  "recent_activity": {
   "activations": [
+   {
+    "date": "2026-10-25",
+    "reference": "US-9937",
+    "park": "Meadowood BLM Special Recreation Management Area",
+    "location": "US-VA",
+    "cw": 88,
+    "data": 0,
+    "phone": 0,
+    "total": 88
+   },
    {
     "date": "2026-10-23",
     "reference": "US-9899",
@@ -141,8 +151,8 @@
    },
    {
     "date": "2026-10-14",
-    "reference": "US-0712",
-    "park": "Manassas National Battlefield",
+    "reference": "US-9935",
+    "park": "Virginia Bird & Wildlife State Trail",
     "location": "US-VA",
     "cw": 39,
     "data": 0,
@@ -151,8 +161,8 @@
    },
    {
     "date": "2026-10-14",
-    "reference": "US-9935",
-    "park": "Virginia Bird & Wildlife State Trail",
+    "reference": "US-0712",
+    "park": "Manassas National Battlefield",
     "location": "US-VA",
     "cw": 39,
     "data": 0,
@@ -161,8 +171,8 @@
    },
    {
     "date": "2026-10-13",
-    "reference": "US-0712",
-    "park": "Manassas National Battlefield",
+    "reference": "US-9935",
+    "park": "Virginia Bird & Wildlife State Trail",
     "location": "US-VA",
     "cw": 10,
     "data": 0,
@@ -171,8 +181,8 @@
    },
    {
     "date": "2026-10-13",
-    "reference": "US-9935",
-    "park": "Virginia Bird & Wildlife State Trail",
+    "reference": "US-0712",
+    "park": "Manassas National Battlefield",
     "location": "US-VA",
     "cw": 10,
     "data": 0,
@@ -191,8 +201,8 @@
    },
    {
     "date": "2026-10-08",
-    "reference": "US-4564",
-    "park": "Potomac Heritage Trail National Scenic Trail",
+    "reference": "US-9935",
+    "park": "Virginia Bird & Wildlife State Trail",
     "location": "US-VA",
     "cw": 34,
     "data": 0,
@@ -201,8 +211,8 @@
    },
    {
     "date": "2026-10-08",
-    "reference": "US-9935",
-    "park": "Virginia Bird & Wildlife State Trail",
+    "reference": "US-4564",
+    "park": "Potomac Heritage Trail National Scenic Trail",
     "location": "US-VA",
     "cw": 34,
     "data": 0,
@@ -268,19 +278,18 @@
     "data": 0,
     "phone": 0,
     "total": 24
-   },
-   {
-    "date": "2026-10-07",
-    "reference": "US-9961",
-    "park": "Dyke Marsh Wildlife Reserve",
-    "location": "US-VA",
-    "cw": 24,
-    "data": 0,
-    "phone": 0,
-    "total": 24
    }
   ],
   "hunter_qsos": [
+   {
+    "date": "2026-10-25T12:58:13",
+    "callsign": "N3WT",
+    "band": "40M",
+    "mode": "CW",
+    "reference": "US-7645",
+    "park": "Assawoman Bay State Wildlife Area",
+    "location": "US-DE"
+   },
    {
     "date": "2026-10-24T20:28:31",
     "callsign": "W0YEM",
@@ -495,15 +504,6 @@
     "mode": "CW",
     "reference": "US-0712",
     "park": "Manassas National Battlefield",
-    "location": "US-VA"
-   },
-   {
-    "date": "2026-10-21T16:45:52",
-    "callsign": "KG4EXY",
-    "band": "17M",
-    "mode": "CW",
-    "reference": "US-9935",
-    "park": "Virginia Bird & Wildlife State Trail",
     "location": "US-VA"
    }
   ]
