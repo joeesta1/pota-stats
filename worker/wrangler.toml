@@ -1,0 +1,22 @@
+# Cloudflare Workers Builds deploys this folder on every push to main
+# (dashboard: w4wje-live > Settings > Builds, root directory "worker").
+# This file is now the source of truth for the Worker's settings - change them here, not in the dashboard.
+name = "w4wje-live"
+main = "worker.js"
+compatibility_date = "2026-10-20"
+workers_dev = true
+
+[[kv_namespaces]]
+binding = "LIVE"
+id = "1020d5e0d9194e48b54d1ed28af6b5f5"   # w4wje-live-kv
+
+[triggers]
+crons = ["* * * * *"]   # poll pota.app every minute (the only writer to KV)
+
+[observability]
+enabled = true
+head_sampling_rate = 1
+
+[observability.logs]
+enabled = true
+invocation_logs = true

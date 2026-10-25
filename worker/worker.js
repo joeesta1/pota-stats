@@ -1,5 +1,6 @@
 // W4WJE live POTA status - server-rendered, no JavaScript in the page (works inside QRZ bio)
 // Bindings: KV namespace as LIVE (optional; without it the worker runs stateless). Cron: * * * * *
+// Deployed by Cloudflare Workers Builds from this folder (see wrangler.toml) on every push to main.
 const API = "https://api.pota.app";
 const POTA = "https://pota.app/#/park/";
 const TTL = 60; // seconds
@@ -345,12 +346,11 @@ const parkHead = act => `<div><div class="pname"><a class="ref" href="${POTA}${e
 const niceDate = d => { try { return d.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric", timeZone: "UTC" }); } catch (e) { return d.toISOString().slice(0, 10); } };
 
 async function renderKV(call, solo, env) {
-  let act = null, err = false;
-  try { act = (await poll(env, call)).act; }
-  catch (e) { err = true; try { act = await env.LIVE.get(KEY(call), "json"); } catch (e2) {} }
-  if (!hasSelf(act)) return err
-    ? page("", "POTA STATUS", '<div class="msg">Couldn’t reach pota.app right now. Retrying shortly.</div>', call, solo)
-    : renderStateless(call, solo);
+  // Read-only: the every-minute cron (scheduled -> poll) is the only writer to KV,
+  // so page views never race it or spend KV writes.
+  let act = null;
+  try { act = await env.LIVE.get(KEY(call), "json"); } catch (e) {}
+  if (!hasSelf(act)) return renderStateless(call, solo);
 
   const now = Date.now();
   const d = decide(act, now);
@@ -391,15 +391,16 @@ export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
     const home = (env.CALL || "W4WJE").toUpperCase();
-    const call = (url.searchParams.get("call") || home).toUpperCase().replace(/[^A-Z0-9\/]/g, "").slice(0, 15) || home;
+    // Locked to the home callsign: ?call= is accepted (the QRZ iframe sends ?call=W4WJE) but ignored.
+    const call = home;
     if (url.pathname.startsWith("/archive")) return env.LIVE ? archiveApi(env, home, url.pathname) : new Response("KV not bound", { status: 501 });
+    if (url.pathname !== "/" && url.pathname !== "") return new Response("Not found", { status: 404 });
     const solo = url.searchParams.has("solo");
-    const cacheKey = new Request(url.origin + "/?call=" + call + (solo ? "&solo" : ""));
+    const cacheKey = new Request(url.origin + "/" + (solo ? "?solo" : ""));
     const cache = caches.default;
     let res = await cache.match(cacheKey);
     if (res) return res;
-    // KV memory only for the home callsign, so other ?call= lookups can't use up KV writes.
-    const html = env.LIVE && call === home ? await renderKV(call, solo, env) : await renderStateless(call, solo);
+    const html = env.LIVE ? await renderKV(call, solo, env) : await renderStateless(call, solo);
     res = new Response(html, { headers: { "content-type": "text/html; charset=utf-8", "cache-control": "public, max-age=" + TTL } });
     ctx.waitUntil(cache.put(cacheKey, res.clone()));
     return res;
